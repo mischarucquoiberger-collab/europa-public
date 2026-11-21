@@ -50,6 +50,17 @@ npm test && npm run lint && npm run typecheck
 - Callisto shows the real workspace interface with fixed start-up answers (`dev/uiOnlyWorkspace.js`).
   A question that is sent gets "not connected yet"; nothing is invented.
 
+## Run everything for a demo
+
+```bash
+scripts/demo.sh start     # starts what is not running: backend :8130, markets desk :3015, the app :3000
+scripts/demo.sh status    # are all three up and answering?
+scripts/demo.sh check     # status, then every outside service (Nicrron, PRISM, Massive, SEC)
+```
+
+Then open http://127.0.0.1:3000. Home shows the markets desk (`markets/`, a Next.js app shown in a
+frame; `cd markets && npm ci && npm run build` once, and link `markets/.env.local` to the root `.env`).
+
 ## Run the backend
 
 ```bash

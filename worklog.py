@@ -529,6 +529,31 @@ STEPS = [
      "backend tests pass. Verified on live reports for nine companies and in a real browser. During the "
      "round the saved reports were deleted through the app's delete route by a client other than the "
      "lead's scripts; six were regenerated."),
+    ("builder", "Fix and verify the teammate's markets desk after it was merged into the project.",
+     "Done, nine items. The page error behind the development issue pill is fixed at its cause. Quarterly "
+     "earnings now read each period from the tag the company uses and carry the company's own fiscal "
+     "names; sixty-four rows for eight companies match the raw filings. All sample data is gone: a panel "
+     "that cannot load says so. Headlines that tip or advise are not shown. The quick brief posts its "
+     "evidence to the project's backend, so no model key is read in the desk. Lint, type check and the "
+     "production build pass."),
+    ("backend", "Give the markets desk a brief route that goes through the one model door.",
+     "Done. The route takes the desk's evidence, writes every figure out in code, makes one model call "
+     "with a redacted trace under its own agent name, and checks the reply sentence by sentence: a number "
+     "that is not in the evidence, advice wording or a cut-off sentence is removed, with a code-built brief "
+     "when nothing is left. Fifty-eight tests pass."),
+    ("builder", "Restore the splash rule, blur the top bar on scroll, and make the Home embed robust.",
+     "Done. The splash plays on every load again; only a deep link into the desk opens without it. "
+     "Scrolling Home fades in a blurred band under the fixed header. If the desk is not running the page "
+     "says so and recovers by itself. The stock finder works by keyboard and opens nothing for nonsense. "
+     "Two hundred and forty-nine interface tests pass."),
+    ("lead", "Merge the teammate's markets home, connect its services, publish, and confirm the demo path.",
+     "Merged the teammate's work without conflicts, installed and ran the desk with the project's settings, "
+     "tested each of its data sections against the data plan, and assigned the gaps to three builders. The "
+     "desk now runs as a production build, so no development overlay can appear. Pushed the working "
+     "repository on the owner's order and published a clean copy as a new public repository after a check "
+     "that it holds no key, no local path and no contact address; the working repository stays private. "
+     "Walked the demo path in a real browser: splash, the desk with live data, the blur, a stock page, the "
+     "recent reports and the viewer, with no page error and no failed request."),
 ]
 
 
