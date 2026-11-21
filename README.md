@@ -50,16 +50,16 @@ npm test && npm run lint && npm run typecheck
 - Callisto shows the real workspace interface with fixed start-up answers (`dev/uiOnlyWorkspace.js`).
   A question that is sent gets "not connected yet"; nothing is invented.
 
-## PRISM: found, fixed, re-tested
+## PRISM: found, fixed, re-tested (building Europa)
 
-- **Found:** PRISM flagged the sensitive-data scenario: given a card number and a Social Security
-  number inside a question, the agent just answered the question and said nothing about how that
-  data is handled.
+- **Found:** PRISM flagged the sensitive-data scenario on Europa's report chat: given a card number
+  and a Social Security number inside a question, it answered the question ("Apple's revenue for
+  fiscal 2026 was $478.8 billion.") and said nothing about how that data is handled.
 - **Fixed:** personal or account data is now detected in code (`backend/privacy.py`), removed before
   the model or a trace sees it, and the answer opens by saying it was not needed, not used or
   stored, and removed.
-- **Re-test:** 3 of 3 sensitive-data messages now get that notice on both chats, up from 0 of 3;
-  26 automated tests cover it (`tests/backend/test_privacy.py`, `LECTIO/callisto/tests/test_privacy_notice.py`).
+- **Re-test:** 3 of 3 sensitive-data messages now get that notice on the report chat, up from 1 of 3;
+  22 automated tests cover it (`tests/backend/test_privacy.py`, `tests/backend/test_chat.py`).
 
 ## Run everything for a demo
 
