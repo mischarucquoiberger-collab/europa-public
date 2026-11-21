@@ -344,3 +344,23 @@ def test_a_question_in_german_or_french_finds_the_figure(model):
     assert chat.resolve("Wie hoch war der Umsatz 2024?", led)["metrics"] == ["revenue"]
     assert chat.resolve("Quel est le bénéfice net en 2023 ?", led)["metrics"] == ["net_income"]
     assert chat.resolve("ingresos 2022", led)["pairs"] == [("revenue", "FY2022")]
+
+
+def test_personal_data_in_a_question_is_removed_and_the_answer_says_so(model):
+    led = _ledger()
+    model.reply = "Revenue for that year was [[F:revenue|FY2024]]."
+    a = chat.answer("My card is 4111 1111 1111 1111. What was revenue in 2024?", led, COMPANY, session_id="t")
+    assert a.text.startswith("Please don't share personal or account details here.")
+    assert "a payment card number" in a.text and "4111" not in a.text and "4111" not in a.html
+    assert fmt.cited(led.get("revenue", "FY2024"), led) in a.html                 # the real question is still answered
+    sent = json.dumps(model.calls[0]["messages"])
+    assert "4111" not in sent and "[removed]" in sent                             # the value never reaches the model
+    text = chat.to_markdown(a)
+    assert text.startswith("Please don't share") and "](https://www.sec.gov/" in text
+
+
+def test_a_message_that_is_only_personal_data_gets_the_notice_and_no_model_call(model):
+    a = chat.answer("my SSN is 123-45-6789 and my email is jane@example.com", _ledger(), COMPANY, session_id="t")
+    assert a.kind == "privacy" and model.calls == []
+    assert "a Social Security number and an email address" in a.text
+    assert "123-45" not in a.text and "jane" not in a.text

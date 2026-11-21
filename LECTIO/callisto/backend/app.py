@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from backend import ask as ask_agent
-from backend import charts, smalltalk, snapshot, tickers
+from backend import charts, privacy, smalltalk, snapshot, tickers
 from backend.workspace_bridge import router as workspace_bridge_router
 
 app = FastAPI(title="What Changed")
@@ -195,8 +195,36 @@ def _finish(out, q: str, ticker: str, lead: str = ""):
     return out
 
 
+def _with_note(out, note: str):
+    """Open an answer with the privacy note (a refusal or error response is passed on as it is)."""
+    if not isinstance(out, dict) or not isinstance(out.get("answer"), str):
+        return out
+    opened = dict(out, answer=f"{note}\n\n{out['answer']}")
+    for key in ("reply", "response"):
+        if isinstance(out.get(key), str):
+            opened[key] = opened["answer"]
+    return opened
+
+
+def _privacy_only(note: str) -> dict:
+    return {"status": "CHAT", "kind": "privacy", "answer": note, "claims": [], "blocked": [], "news": [],
+            "agent": "Callisto"}
+
+
 @app.post("/api/ask")
 def ask(req: AskRequest):
+    """Personal or account data in a question (a card number, a password, an email address) is taken
+    out in code before anything else sees it, and the answer opens by saying so."""
+    kinds, cleaned = privacy.scan(_san(req.question or ""))
+    if not kinds:
+        return _ask(req)
+    note = privacy.notice(kinds)
+    if not privacy.has_question(cleaned):
+        return _finish(_privacy_only(note), cleaned.strip(), _clean_ticker(req.ticker) or "AAPL")
+    return _with_note(_ask(req.model_copy(update={"question": cleaned})), note)
+
+
+def _ask(req: AskRequest):
     ticker, q = _clean_ticker(req.ticker), _san(req.question or "").strip()
     if not ticker:
         return _bad("Please send a stock ticker of up to 10 letters, like AAPL.")
@@ -297,6 +325,11 @@ def chat(body: dict):
                 text = _text(m.get("content"))
                 break
     text = _san(text).strip()
+    kinds, cleaned = privacy.scan(text)       # personal or account data never goes further
+    note = privacy.notice(kinds) if kinds else ""
+    if kinds and not privacy.has_question(cleaned):
+        return {**_privacy_only(note), "reply": note, "response": note}
+    text = cleaned.strip() if kinds else text
     ticker = _clean_ticker(body.get("ticker"))
     if not ticker:
         return _bad("Please send a stock ticker of up to 10 letters, like AAPL.")
@@ -305,7 +338,8 @@ def chat(body: dict):
     if len(text) > MAX_Q:
         return _bad(f"Please keep questions under {MAX_Q} characters.")
     out = ask_agent.answer(ticker, text)
-    return {**out, "reply": out.get("answer", ""), "response": out.get("answer", "")}
+    out = {**out, "reply": out.get("answer", ""), "response": out.get("answer", "")}
+    return _with_note(out, note) if note else out
 
 
 @app.get("/")

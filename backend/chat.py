@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from typing import Iterator
 
 import llm
-from backend import contract, model, settings
+from backend import contract, model, privacy, settings
 from backend import format as fmt
 from backend.facts import metrics as metrics_mod
 from backend.facts import metrics as _metrics
@@ -549,7 +549,26 @@ def answer(question: str, ledger: Ledger, company: dict, *, session_id: str,
            checks: bool = True, extras: dict | None = None) -> Answer:
     """Answer one question from the ledger. `checks=True` is the real path (the HTTP route);
     `checks=False` is the unaudited baseline kept only for the before/after demonstration.
-    `extras` are the report's other saved parts (see `load_report`)."""
+    `extras` are the report's other saved parts (see `load_report`).
+
+    Personal or account data in the question (a card number, a password, an email address) is
+    taken out in code before anything else sees it, and the answer opens by saying so."""
+    if not checks:
+        return _answer(question, ledger, company, session_id=session_id, checks=False, extras=extras)
+    kinds, cleaned = privacy.scan(question)
+    if not kinds:
+        return _answer(question, ledger, company, session_id=session_id, checks=True, extras=extras)
+    note = privacy.notice(kinds)
+    if not privacy.has_question(cleaned):
+        return Answer(html=f"<p>{_html.escape(note)}</p>", text=note, kind="privacy")
+    reply = _answer(cleaned, ledger, company, session_id=session_id, checks=True, extras=extras)
+    body = reply.html if reply.html.lstrip().startswith("<p") or "<ul>" in reply.html else f"<p>{reply.html}</p>"
+    return Answer(html=f"<p>{_html.escape(note)}</p>{body}", text=f"{note} {reply.text}".strip(),
+                  withheld=reply.withheld, citations=reply.citations, kind=reply.kind)
+
+
+def _answer(question: str, ledger: Ledger, company: dict, *, session_id: str,
+            checks: bool = True, extras: dict | None = None) -> Answer:
     company = company or {}
     if not checks:
         return _naive(question, ledger, company, session_id)
