@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <base href="/xyz/" />
+    <link rel="license" href="assets/callisto/credits.html" />
+    <script>
+      /* The landing planet's surface map, fetched while the app's code loads — only
+       * when the page opens on the landing (a new chat). A chat opened directly never
+       * draws the planet, and an unused preload is a wasted 4k download plus a console
+       * warning. Relative to <base>, as the planet's own request is. */
+      (function () {
+        try {
+          var base = new URL(document.baseURI).pathname;
+          var path = window.location.pathname;
+          var rest = path.indexOf(base) === 0 ? path.slice(base.length) : path.replace(/^\//, '');
+          if (!/^(c\/new\/?)?$/.test(rest)) {
+            return;
+          }
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.type = 'image/webp';
+          link.href = 'assets/callisto/callisto-terrain-4k.webp';
+          document.head.appendChild(link);
+        } catch (e) {
+          /* the planet fetches its map itself */
+        }
+      })();
+    </script>
+    <script>
+      /* The planet's arrival waits while the embedding page still shows its opening screen. */
+      window.__callistoHeld = function () {
+        try {
+          return window.parent !== window && !!window.parent.document.querySelector('.dr2-splash');
+        } catch (e) {
+          return false;
+        }
+      };
+    </script>
+    <style id="callisto-query-only">
+      /* this build has no Deep Research: its switch (and the switch's waiting and read-only forms,
+         and the description read to screen readers) is gone, and so is the Tools menu, whose rows
+         were all research settings (the research switch, run depth, sources, claim tracking) */
+      [data-research-toggle], [data-research-toggle] + .sr-only, [data-testid^="deep-research-"],
+      [data-testid="indago-tools-button"], [data-testid="tools-menu-deep-research"] { display: none !important; }
+    </style>
+    <script id="callisto-query-only-guard">
+      /* No Deep Research in this build. Its shortcut goes back to the browser; a research model
+       * remembered from an earlier visit, or named in the address, is forgotten before the app
+       * reads it; and no request can leave the page asking for the research model. */
+      (function () {
+        var DEEP = 'indago-deep-research', PLAIN = 'indago-query';
+        var plain = function (text) { return typeof text === 'string' && text.indexOf(DEEP) !== -1 ? text.split(DEEP).join(PLAIN) : text; };
+        window.addEventListener('keydown', function (e) {
+          if ((e.metaKey || e.ctrlKey) && e.shiftKey && !e.altKey && (e.key === 'D' || e.key === 'd' || e.code === 'KeyD')) {
+            e.stopImmediatePropagation();
+          }
+        }, true);
+        try {
+          for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i), value = localStorage.getItem(key);
+            if (value && value.indexOf(DEEP) !== -1) localStorage.setItem(key, plain(value));
+          }
+        } catch (e) {
+          /* storage unavailable: the app starts in the ordinary mode anyway */
+        }
+        try {
+          if (window.location.search.indexOf(DEEP) !== -1) {
+            window.history.replaceState(window.history.state, '', window.location.pathname + plain(window.location.search) + window.location.hash);
+          }
+        } catch (e) {
+          /* the address stays; the request guard below still holds */
+        }
+        try {
+          var send = window.fetch;
+          window.fetch = function (input, init) {
+            if (init && typeof init.body === 'string') init = Object.assign({}, init, { body: plain(init.body) });
+            return send.call(this, input, init);
+          };
+          var xhrSend = XMLHttpRequest.prototype.send;
+          XMLHttpRequest.prototype.send = function (body) { return xhrSend.call(this, plain(body)); };
+        } catch (e) {
+          /* nothing to guard */
+        }
+      })();
+    </script>
+    <style id="callisto-fit">
+      div.h-4.w-28:has(> span > svg[data-testid="indago-logo"]) { width: 180px !important; margin-left: 4px; }
+    </style>
+    <meta name="theme-color" content="#171717" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="description"
+      content="Callisto: answers about US listed companies from their filings"
+    />
+    <title>Callisto</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon-180x180.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, interactive-widget=resizes-content"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
+    <script>
+      const theme = localStorage.getItem('color-theme');
+      const loadingContainerStyle = document.createElement('style');
+      let backgroundColor;
+
+      if (theme === 'high-contrast-dark') {
+        backgroundColor = '#0e1420';
+      } else if (theme === 'high-contrast-light') {
+        backgroundColor = '#ffffff';
+      } else if (theme === 'dark') {
+        backgroundColor = '#0e1420';
+      } else if (theme === 'light') {
+        backgroundColor = '#ffffff';
+      } else {
+        /* `system`, and anything unset or unrecognised, which ThemeProvider also
+         * resolves as `system`. The OS decides the scheme and the contrast, and
+         * a contrast request moves the dark canvas to pure black, so keying off
+         * the scheme alone would flash #0d0d0d behind the black palette.
+         * The three contrast queries mirror ThemeProvider's `CONTRAST_QUERIES`:
+         * a Windows Contrast Theme reports `forced-colors: active` with
+         * `prefers-contrast: custom`, never `more`. */
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const prefersMoreContrast = [
+          '(prefers-contrast: more)',
+          '(prefers-contrast: custom)',
+          '(forced-colors: active)',
+        ].some(function (query) {
+          return window.matchMedia(query).matches;
+        });
+        backgroundColor = prefersDarkScheme
+          ? prefersMoreContrast
+            ? '#000000'
+            : '#0d0d0d'
+          : '#ffffff';
+      }
+
+      loadingContainerStyle.innerHTML = `
+        #loading-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background-color: ${backgroundColor};
+        }
+      `;
+      document.head.appendChild(loadingContainerStyle);
+    </script>
+    <script>
+      (function () {
+        var KEY = 'lc-asset-recovery-at';
+        var RUM_QUEUE_KEY = 'lc-rum-queue';
+        var MAX_RUM_QUEUE = 20;
+        window.__lcRumRecoveryGuardInstalled = true;
+        window.__lcRumQueue = Array.isArray(window.__lcRumQueue) ? window.__lcRumQueue : [];
+        try {
+          var persistedQueue = JSON.parse(sessionStorage.getItem(RUM_QUEUE_KEY) || '[]');
+          if (Array.isArray(persistedQueue)) {
+            window.__lcRumQueue = persistedQueue.concat(window.__lcRumQueue).slice(-MAX_RUM_QUEUE);
+          }
+        } catch (e) {
+          /* Diagnostics should never affect application startup. */
+        }
+        window.__lcRumPush = function (type, attributes) {
+          try {
+            var safeAttributes = {};
+            Object.keys(attributes || {}).forEach(function (key) {
+              var value = attributes[key];
+              if (
+                typeof value !== 'string' &&
+                typeof value !== 'number' &&
+                typeof value !== 'boolean'
+              ) {
+                return;
+              }
+              safeAttributes[key] = value;
+            });
+            /* Stamp before persistence: a recovery reload may precede the RUM module. */
+            safeAttributes.clientBuildId = 'unknown';
+            var entryScripts = document.querySelectorAll('script[type="module"][src]');
+            for (var i = 0; i < entryScripts.length; i++) {
+              var filename = entryScripts[i]
+                .getAttribute('src')
+                .split(/[?#]/, 1)[0]
+                .split('/')
+                .pop();
+              if (/^index[.-][\w-]+\.js$/.test(filename)) {
+                safeAttributes.clientBuildId = filename;
+                break;
+              }
+            }
+            if (window.__lcRumQueue.length >= MAX_RUM_QUEUE) {
+              window.__lcRumQueue.shift();
+            }
+            window.__lcRumQueue.push({
+              type: type,
+              at: Math.round(performance.now()),
+              visibilityState: document.visibilityState,
+              attributes: safeAttributes,
+            });
+            sessionStorage.setItem(RUM_QUEUE_KEY, JSON.stringify(window.__lcRumQueue));
+          } catch (e) {
+            /* Diagnostics should never affect application startup. */
+          }
+        };
+        function shouldRecover() {
+          try {
+            var last = Number(sessionStorage.getItem(KEY)) || 0;
+            if (Date.now() - last < 60000) {
+              return false;
+            }
+            sessionStorage.setItem(KEY, String(Date.now()));
+            return true;
+          } catch (e) {
+            return false;
+          }
+        }
+        window.__lcRecoverStaleAssets = function () {
+          if (!shouldRecover()) {
+            return false;
+          }
+          window.__lcRumPush('stale-asset-recovery-start');
+          var reload = function () {
+            window.__lcRumPush('stale-asset-recovery-reload');
+            window.location.reload();
+          };
+          if (navigator.serviceWorker) {
+            var scopeBase = new URL('./', document.baseURI || window.location.href).href;
+            navigator.serviceWorker
+              .getRegistrations()
+              .then(function (registrations) {
+                return Promise.all(
+                  registrations
+                    .filter(function (registration) {
+                      return registration.scope.indexOf(scopeBase) === 0;
+                    })
+                    .map(function (registration) {
+                      return registration.unregister();
+                    }),
+                );
+              })
+              .then(reload, reload);
+          } else {
+            reload();
+          }
+          return true;
+        };
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.addEventListener('message', function (event) {
+            if (!event.data || event.data.type !== 'LC_SW_PING') {
+              return;
+            }
+            var source = event.source || navigator.serviceWorker.controller;
+            if (source) {
+              source.postMessage({ type: 'LC_SW_PONG' });
+            }
+          });
+        }
+        window.addEventListener(
+          'error',
+          function (event) {
+            var el = event.target;
+            if (!el || !el.tagName) {
+              return;
+            }
+            var failedScript = el.tagName === 'SCRIPT' && el.src;
+            var failedPreload =
+              el.tagName === 'LINK' && /preload/.test(el.rel || '') && /\.js$/.test(el.href || '');
+            if (failedScript || failedPreload) {
+              var isRumBootstrap = el.getAttribute('data-lc-rum-bootstrap') === 'true';
+              window.__lcRumPush('asset-load-error', {
+                tagName: el.tagName,
+                assetUrl: el.src || el.href,
+                optional: isRumBootstrap,
+              });
+              if (isRumBootstrap) {
+                return;
+              }
+              window.__lcRecoverStaleAssets();
+            }
+          },
+          true,
+        );
+        window.addEventListener('unhandledrejection', function (event) {
+          var message = event.reason && event.reason.message;
+          if (
+            typeof message === 'string' &&
+            (message.indexOf('dynamically imported module') !== -1 ||
+              message.indexOf('Importing a module script failed') !== -1)
+          ) {
+            window.__lcRumPush('dynamic-import-error');
+            window.__lcRecoverStaleAssets();
+          }
+        });
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index.DbZmdx_H.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime.B0Z9INg1.js">
+    <link rel="modulepreload" crossorigin href="./assets/polyfills.CEDm44Cr.js">
+    <link rel="modulepreload" crossorigin href="./assets/advanced-inputs.DVM0L8HV.js">
+    <link rel="modulepreload" crossorigin href="./assets/codemirror-core.r8uhyzQ3.js">
+    <link rel="modulepreload" crossorigin href="./assets/http-client.C5fr6Lnu.js">
+    <link rel="modulepreload" crossorigin href="./assets/mermaid.Bp13eDXu.js">
+    <link rel="modulepreload" crossorigin href="./assets/query-devtools.bfOsY2EM.js">
+    <link rel="modulepreload" crossorigin href="./assets/validation.Bd3jvxDI.js">
+    <link rel="modulepreload" crossorigin href="./assets/animations.ScZOVQFI.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-vtree.CFczBOiO.js">
+    <link rel="modulepreload" crossorigin href="./assets/vendor.BVf9XNZO.js">
+    <link rel="modulepreload" crossorigin href="./assets/i18n.DhZXLCXZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-interactions.Cxf8uuPH.js">
+    <link rel="modulepreload" crossorigin href="./assets/routing.RuxGFavb.js">
+    <link rel="modulepreload" crossorigin href="./assets/radix-ui.DuRlxoZj.js">
+    <link rel="modulepreload" crossorigin href="./assets/tanstack-vendor.Co3-ThVA.js">
+    <link rel="modulepreload" crossorigin href="./assets/transport.BLN-u-nH.js">
+    <link rel="modulepreload" crossorigin href="./assets/surface.D3QAoMO5.js">
+    <link rel="modulepreload" crossorigin href="./assets/avatars.DwBzmTCp.js">
+    <link rel="modulepreload" crossorigin href="./assets/framer-motion.C1VfHazE.js">
+    <link rel="modulepreload" crossorigin href="./assets/virtualization.k_6p6kaA.js">
+    <link rel="modulepreload" crossorigin href="./assets/headlessui.BPYgJxGs.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-processing.BMBGIU8R.js">
+    <link rel="modulepreload" crossorigin href="./assets/utilities.HUTk6tC6.js">
+    <link rel="modulepreload" crossorigin href="./assets/date-utils.C_DbPEjY.js">
+    <link rel="modulepreload" crossorigin href="./assets/format.BwhByxON.js">
+    <link rel="modulepreload" crossorigin href="./assets/railLive.Cdnc5mtY.js">
+    <link rel="modulepreload" crossorigin href="./assets/forms.DoiQK8Sc.js">
+    <link rel="modulepreload" crossorigin href="./assets/math-katex.DlGiNlm6.js">
+    <link rel="modulepreload" crossorigin href="./assets/visibility.Db24dlxq.js">
+    <link rel="modulepreload" crossorigin href="./assets/palette.bOFFzYYl.js">
+    <link rel="modulepreload" crossorigin href="./assets/OsmoGraph.Da3JWK0w.js">
+    <link rel="modulepreload" crossorigin href="./assets/hooks.CeWhDvZO.js">
+    <link rel="modulepreload" crossorigin href="./assets/SetKeyDialog.DHviMBTI.js">
+    <link rel="modulepreload" crossorigin href="./assets/security-ui.DdEdZ161.js">
+    <link rel="modulepreload" crossorigin href="./assets/DeleteButton.-pXHrThS.js">
+    <link rel="modulepreload" crossorigin href="./assets/RenameForm.CMJNrPWd.js">
+    <link rel="modulepreload" crossorigin href="./assets/ProjectEditDialog.B65oMe3s.js">
+    <link rel="modulepreload" crossorigin href="./assets/forms.DXBckj6O.js">
+    <link rel="modulepreload" crossorigin href="./assets/MyFilesModal.B94yjrZ9.js">
+    <link rel="modulepreload" crossorigin href="./assets/queries.qg12b0EI.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown.jep7OHcu.js">
+    <link rel="modulepreload" crossorigin href="./assets/eventSelection.CHQQOMlC.js">
+    <link rel="modulepreload" crossorigin href="./assets/focus.B5S5W2Dn.js">
+    <link rel="modulepreload" crossorigin href="./assets/state.BQuIsxps.js">
+    <link rel="modulepreload" crossorigin href="./assets/research.module.in4bwZwZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/useSelectMention.B0F4uiPe.js">
+    <link rel="stylesheet" crossorigin href="./assets/math-katex.uZ8_QngQ.css">
+    <link rel="stylesheet" crossorigin href="./assets/OsmoGraph.Czlmc02S.css">
+    <link rel="stylesheet" crossorigin href="./assets/hooks.DCY63PXm.css">
+    <link rel="stylesheet" crossorigin href="./assets/research.CMH9etRb.css">
+    <link rel="stylesheet" crossorigin href="./assets/index.DpbOWcWs.css">
+  <style id="callisto-build">
+      /* this build: the app's navy ground in place of pure black */
+      html:root.dark, html:root.dark.high-contrast {
+        --presentation: 14 20 32 !important; --header-primary: 14 20 32 !important; --surface-primary: 14 20 32 !important; --surface-primary-alt: 14 20 32 !important;
+        --surface-primary-contrast: 14 20 32 !important; --surface-secondary: 14 20 32 !important; --surface-secondary-alt: 14 20 32 !important;
+        --surface-tertiary: 14 20 32 !important; --surface-tertiary-alt: 14 20 32 !important; --surface-dialog: 14 20 32 !important; --surface-overlay: 14 20 32 !important;
+        --surface-chat: 14 20 32 !important; --surface-code: 14 20 32 !important; --chart-widget-surface: 14 20 32 !important; --status-success-subtle: 14 20 32 !important;
+        --status-info-subtle: 14 20 32 !important; --status-warning-subtle: 14 20 32 !important; --status-error-subtle: 14 20 32 !important;
+        --status-neutral-subtle: 14 20 32 !important;
+      }
+      html:root.dark, html:root.dark body { background-color: #0e1420 !important; }
+      /* the longer word keeps the original letter height: 544 -> 719 units wide */
+      div:has(> span > svg[data-testid="indago-logo"]) { width: 233px !important; }
+      @media (min-width: 640px) { div:has(> span > svg[data-testid="indago-logo"]) { width: 254px !important; } }
+      @media (max-height: 600px) { div:has(> span > svg[data-testid="indago-logo"]) { width: 169px !important; } }
+      /* the planet's night side melts into the navy ground, as it did into black */
+      figure[data-testid="mars-horizon"] { mix-blend-mode: lighten; }
+      /* this build has no Screener page */
+      a[href="/#/ScreenerMode"] { display: none !important; }
+    </style>
+    <script defer src="assets/callisto/starters.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div id="loading-container"></div>
+    </div>
+  </body>
+</html>

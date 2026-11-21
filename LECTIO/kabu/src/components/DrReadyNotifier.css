@@ -1,0 +1,8 @@
+.dr-notify { position: fixed; left: 16px; bottom: 16px; z-index: 60; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; max-width: min(440px, calc(100vw - 32px)); padding: 12px 14px; border: 1px solid #2c2c2c; border-radius: 12px; background: #0e1420; color: #f1f1f1; box-shadow: 0 12px 36px rgba(0, 0, 0, .35); font-size: 13.5px; line-height: 1.5; }
+.dr-notify__text { margin: 0; flex: 1 1 220px; }
+.dr-notify__actions { display: flex; gap: 8px; }
+.dr-notify__button { min-height: 36px; padding: 6px 14px; border: 1px solid #4a4a4a; border-radius: 8px; background: transparent; color: #f1f1f1; font: inherit; cursor: pointer; }
+.dr-notify__button:hover { border-color: #9a9a9a; }
+.dr-notify__button--primary { border-color: #f1f1f1; background: #f1f1f1; color: #0b0b0b; }
+.dr-notify__button--primary:hover { background: #fff; }
+.dr-notify button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }

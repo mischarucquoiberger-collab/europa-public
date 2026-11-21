@@ -1,0 +1,342 @@
+/* Deep Research opening screen (DrSplash.jsx). Loading: the lusion.co preloader, 1:1 — its
+   layout, sizes, colours and stacking (#transition-overlay, #preloader, #preloader-percent-digits,
+   .preloader-percent-digit), rewritten for this screen. The screen covers the workspace's
+   content area, so the viewport units become the screen's own (container units).
+   Lusion sets its counter in Aeonik, a commercial typeface that is not shipped here: the counter
+   uses the closest system face (SF Pro on Apple devices, Segoe UI / Roboto elsewhere).
+   The end: Osmo Supply's "Curved Wipe Page Transition", its CSS 1:1 (at the end of this file). */
+
+.dr2-splash {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  container-type: size;
+  margin: 0;
+  color: #fff;
+  font-family: system-ui, -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* the curved wipe's fixed layer covers this screen (the content area), as the demo's covers
+     its viewport; the screen itself paints nothing, so the workspace shows as the panel lifts */
+  contain: layout;
+}
+
+/* gone (onDone): the screen no longer takes the pointer */
+.dr2-splash[data-done] {
+  pointer-events: none;
+}
+
+.dr2-splash *,
+.dr2-splash *::before,
+.dr2-splash *::after {
+  box-sizing: border-box;
+}
+
+/* the loading layer (the canvas and the counter): the curved wipe's current page, under its panel */
+.dr2-splash__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* #transition-overlay: the navy ground layer, the bar and the mark (2 px past the right and bottom) */
+.dr2-splash__overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: block;
+  pointer-events: auto;
+}
+
+/* #preloader: the navy ground (#0e1420, as on Home) until the overlay draws (html.is-ready),
+   then only the counter shows */
+.dr2-splash__preloader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  background-color: #0e1420;
+  pointer-events: none;
+}
+
+.dr2-splash__preloader[data-ready] {
+  background-color: transparent;
+}
+
+/* #preloader-percent-digits: flush bottom-left, a strip one number tall */
+.dr2-splash__digits {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: clamp(112px, 8cqw, 320px);
+  height: .75em;
+  line-height: .75em;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* The loading bar (owner 2026-11-22: "change the side thing to something like this", Osmo's
+   Number Loader): a solid bar down the left edge, the full height of the screen, that fills from
+   the bottom up (transform-origin: bottom, scaleY) with the same number the counter reads. The
+   resource's .loading__progress / .loading__progress-inner, in this screen's white on navy; the
+   counter moves right to clear it, as the resource's numbers do. */
+.dr2-splash__rail {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1em;
+  height: 100%;
+  font-size: 16px;
+}
+
+.dr2-splash__rail-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  will-change: transform;
+}
+
+.dr2-splash__preloader .dr2-splash__digits {
+  left: 26px;
+}
+
+/* lusion.co: html { font-size: .6em } on screens wider than 21:9 */
+@container (min-aspect-ratio: 21/9) {
+  .dr2-splash__digits { font-size: clamp(67.2px, 8cqw, 192px); }
+}
+
+@container (max-width: 812px) {
+  .dr2-splash__digits { font-size: 13cqw; }
+}
+
+/* .preloader-percent-digit: a column of two numbers, the digit and the next one below it.
+   lusion.co's columns are 1ch of Aeonik, .625em (72 px at 1440); the system face's 1ch is
+   narrower, so the column is that width outright */
+.dr2-splash__digit {
+  position: relative;
+  float: left;
+  width: .625em;
+  text-align: center;
+  transform: translateY(-.05em);
+}
+
+/* the system face sits its digits about .035em higher in the line than Aeonik: this puts the ink
+   where lusion.co's is (bottom 2 px above the edge at 1440, the next number out of sight) */
+.dr2-splash__digit-num {
+  position: relative;
+  top: .035em;
+  display: block;
+}
+
+.dr2-splash__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* errors and the slow-start actions (no lusion.co counterpart): above the counter, under the bar.
+   On a short screen (a phone on its side) the notice moves up just enough to end 12 px above the
+   bottom edge (the screen is overflow: hidden, so it would be cut), but never above 12 px from
+   the top: translateY = clamp(12px - its top, 100cqh - 12px - its top - its height, 0), with
+   its top at 50cqh + 48px and 100% its own height. */
+.dr2-splash__notice {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 48px);
+  z-index: 300;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 16px;
+  width: min(32em, calc(100% - 32px));
+  transform: translate(-50%, clamp(calc(-50cqh - 36px), calc(50cqh - 60px - 100%), 0px));
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  color: rgba(255, 255, 255, .65);
+  pointer-events: auto;
+}
+
+.dr2-splash__notice p { margin: 0; }
+.dr2-splash__notice p + p { margin-top: .5em; }
+.dr2-splash__notice-title { color: #fff; }
+
+.dr2-splash__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dr2-splash__button {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 0;
+  background: #0e1420;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color .2s ease;
+}
+
+.dr2-splash__button:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dr2-splash__button:hover { border-color: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dr2-splash__button { transition: none; }
+}
+
+/* ── Osmo Supply, "Curved Wipe Page Transition": the resource's CSS 1:1 ───────────────────────
+   Adaptation: every selector is scoped to the splash (.dr2-splash …). The app's Tailwind has its
+   own .transition utility (buttons in ReportViewer.jsx use it), and an unscoped .transition rule
+   would make every one of them a fixed, full-screen layer once this file has loaded. The
+   declarations are the resource's, unchanged. */
+
+/* Adaptation: Osmo's scaling system (the demo's :root and body), scoped to the transition, so its
+   em sizes are the demo's: 1em = 16px at a 1440 px-wide screen, scaling with the width within
+   each band. */
+.dr2-splash .transition {
+  --size-unit: 16; /* body font-size in design - no px */
+  --size-container-ideal: 1440; /* screen-size in design - no px */
+  --size-container-min: 992px;
+  --size-container-max: 1920px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  font-size: var(--size-font);
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  .dr2-splash .transition {
+    --size-container-ideal: 834; /* screen-size in design - no px */
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  .dr2-splash .transition {
+    --size-container-ideal: 390; /* screen-size in design - no px */
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+  }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  .dr2-splash .transition {
+    --size-container-ideal: 390; /* screen-size in design - no px */
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+  }
+}
+
+.dr2-splash .transition {
+  z-index: 100;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+}
+
+.dr2-splash .transition__panel {
+  color: #18233a; /* adaptation: a lifted brand navy, so the curve reads over the navy ground (the resource's #201d1d over black) */
+  background-color: currentColor;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.dr2-splash .transition__panel-top {
+  transform-origin: bottom;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  height: 0%;
+  display: flex;
+  position: absolute;
+  bottom: calc(100% - 1px);
+  left: 0;
+  overflow: hidden;
+}
+
+.dr2-splash .transition__panel-bottom {
+  transform-origin: top;
+  flex-flow: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 0%;
+  display: flex;
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  overflow: hidden;
+}
+
+.dr2-splash .transition__panel-circle {
+  aspect-ratio: auto;
+  background-color: currentColor;
+  border-radius: 50%;
+  width: 125%;
+  height: 500%;
+  position: absolute;
+}
+
+.dr2-splash .transition__logo {
+  color: #f4f4f4;
+  opacity: 0;
+  width: 11em;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+
+/* Adaptation: the logo. The demo's OSMO logo (viewBox 622 x 180) is 11em wide; the wipe's DEEP
+   RESEARCH (Michroma, ~17:1) is as wide as the CALLISTO word of the first screen, 11em * (180/622) *
+   (706.75/49) (~45.9em, 735 px at 1440, letters ~41 px tall), never wider than 84vw. */
+.dr2-splash .transition__logo {
+  width: min(calc(11em * (180 / 622) * (706.75 / 49)), 84vw);
+}
+
+/* the demo's svg (width="100%", no height): the box of the letters, which the logo clips */
+.dr2-splash .transition__logo svg {
+  display: block;
+  overflow: hidden;
+}

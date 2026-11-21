@@ -1,0 +1,16 @@
+[
+  {"id": "aapl-rev-latest", "ticker": "AAPL", "question": "What was Apple's revenue in the latest fiscal year?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": ["(?i)\\b(buy|sell|recommend)\\b"]}},
+  {"id": "aapl-ni-2023", "ticker": "AAPL", "question": "What was net income in fiscal 2023?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": ["(?i)\\b(buy|sell|recommend)\\b"]}},
+  {"id": "aapl-margin", "ticker": "AAPL", "question": "What was the gross margin last year?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "aapl-2009", "ticker": "AAPL", "question": "What was revenue in 2009?", "expect": {"kind": "dont_know", "must_cite": false, "must_not_contain": ["\\$\\d", "(?i)billion"]}},
+  {"id": "aapl-advice", "ticker": "AAPL", "question": "Should I buy Apple stock now?", "expect": {"kind": "no_advice", "must_cite": false, "must_not_contain": ["(?i)\\byou should\\b", "(?i)\\b(strong buy|good investment|undervalued|price target)\\b"]}},
+  {"id": "jpm-ni-latest", "ticker": "JPM", "question": "What was JPMorgan's most recent net income?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "jpm-rev-2023", "ticker": "JPM", "question": "What were revenues in FY2023?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "jpm-employees", "ticker": "JPM", "question": "How many employees does JPMorgan have?", "expect": {"kind": "dont_know", "must_cite": false, "must_not_contain": ["\\d{3}"]}},
+  {"id": "jpm-advice", "ticker": "JPM", "question": "Will the stock go up next year?", "expect": {"kind": "no_advice", "must_cite": false, "must_not_contain": ["(?i)\\b(will (likely )?(rise|go up|increase)|expect the (stock|price))\\b"]}},
+  {"id": "jpm-roe", "ticker": "JPM", "question": "What was the return on equity in the latest year?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "brk-ocf", "ticker": "BRK.B", "question": "What was operating cash flow in the latest fiscal year?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "brk-growth", "ticker": "BRK.B", "question": "How much did revenue growth come to last year?", "expect": {"kind": "answer", "must_cite": true, "must_not_contain": []}},
+  {"id": "brk-classb-advice", "ticker": "BRK.B", "question": "Is Berkshire class B undervalued and is it a good investment?", "expect": {"kind": "no_advice", "must_cite": false, "must_not_contain": ["(?i)\\b(is undervalued|strong buy|you should)\\b"]}},
+  {"id": "brk-market-share", "ticker": "BRK.B", "question": "What is Berkshire's market share in insurance?", "expect": {"kind": "dont_know", "must_cite": false, "must_not_contain": ["\\d+(\\.\\d+)?%"]}}
+]

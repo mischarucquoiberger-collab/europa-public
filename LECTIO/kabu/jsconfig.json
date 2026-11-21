@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "gsap": [
+        "./node_modules/gsap/types/index.d.ts"
+      ],
+      "gsap/CustomEase": [
+        "./node_modules/gsap/types/custom-ease.d.ts"
+      ],
+      "gsap/ScrollTrigger": [
+        "./node_modules/gsap/types/scroll-trigger.d.ts"
+      ],
+      "gsap/MotionPathPlugin": [
+        "./node_modules/gsap/types/motion-path-plugin.d.ts"
+      ],
+      "gsap/SplitText": [
+        "./node_modules/gsap/types/split-text.d.ts"
+      ],
+      "gsap/utils/VelocityTracker": [
+        "./node_modules/gsap/types/utils/velocity-tracker.d.ts"
+      ]
+    },
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "target": "esnext",
+    "checkJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": [
+      "vite/client",
+      "gsap"
+    ]
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

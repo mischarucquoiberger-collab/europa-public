@@ -1,0 +1,13 @@
+{
+  "request_id": "synthetic-0004",
+  "results": [
+    {"ticker": "MSFT"},
+    {"ticker": "GOOGL"},
+    {"ticker": "brk-b"},
+    {"ticker": "AAPL"},
+    {"ticker": "TOOLONGX"},
+    {"ticker": "MSFT"}
+  ],
+  "status": "OK",
+  "stock_symbol": "AAPL"
+}

@@ -1,0 +1,13 @@
+SYNTHETIC DEMO (2026-11-21): writer swapped on purpose to state FY2026 net sales as $512.4B (SEC 10-K: $478.8B). Not a real answer.
+Script: scripts/demo_synthetic_wrong_number.py. Offline test: tests/test_synthetic_demo.py (skeptic stubbed, so number_gate alone blocks it).
+
+=== SYNTHETIC DEMO, checker OFF ===
+answer : Apple's net sales in fiscal 2026 were $512.4 billion. Apple's net sales in fiscal 2025 were $416.2 billion.
+steps  : guard_advice > desk_router > specialist_filings > specialist_fundamentals > write_answer > notices
+PRISM session: ask-<session-id>
+
+=== SYNTHETIC DEMO, checker ON ===
+answer : Apple's net sales in fiscal 2025 were $416.2 billion.
+blocked: REFUTED | Apple's net sales in fiscal 2026 were $512.4 billion. | Skeptic (second model): Evidence sheet 1 says revenue_fy2026 (Net sales, fiscal 2026) is $478.8 billion, not $512.4 billion.
+steps  : guard_advice > desk_router > specialist_filings > specialist_fundamentals > write_answer > skeptic_review > number_gate > notices
+PRISM session: ask-<session-id>

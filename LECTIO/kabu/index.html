@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" class="splash">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LECTIO — Europa</title>
+    <script>
+      // The splash plays on every full load and reload (owner's rule), decided here before the
+      // first paint. One exception: a deep link into the markets desk (#/Home?page=/stocks/… or
+      // ?page=/reports…, a chart or brief opened in a new tab) opens straight on its page. The
+      // page test matches the paths LectioHome accepts (deskPage) and nothing is stored.
+      (function () {
+        var hash = location.hash || "";
+        var cut = hash.indexOf("?");
+        var route = (cut < 0 ? hash : hash.slice(0, cut)).toLowerCase();
+        var page = "";
+        try { page = new URLSearchParams(cut < 0 ? "" : hash.slice(cut + 1)).get("page") || ""; } catch (e) {}
+        var deskLink = route === "#/home" &&
+          (/^\/stocks\/[A-Z0-9][A-Z0-9.:%-]*$/i.test(page) || /^\/reports(?:\?|$)/.test(page));
+        document.documentElement.classList.toggle("splash", !deskLink);
+      })();
+    </script>
+    <style>html,body{background:#0e1420;color-scheme:dark}html.splash,html.splash body{background:#0a0a0a !important}</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

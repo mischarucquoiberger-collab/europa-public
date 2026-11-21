@@ -1,0 +1,14 @@
+{
+  "count": 3,
+  "request_id": "synthetic-0005",
+  "status": "OK",
+  "results": [
+    {"id": "n1", "title": "Synthetic headline one", "article_url": "https://news.example.com/one",
+     "published_utc": "2026-11-20T14:30:00Z", "publisher": {"name": "Example Wire", "homepage_url": "https://news.example.com/"},
+     "tickers": ["AAPL"]},
+    {"id": "n2", "title": "Synthetic headline without a link", "published_utc": "2026-11-19T09:00:00Z",
+     "publisher": {"name": "Example Wire"}, "tickers": ["AAPL"]},
+    {"id": "n3", "title": "Synthetic headline two", "article_url": "https://news.example.com/two",
+     "published_utc": "2026-11-18T08:00:00Z", "publisher": {"name": "Example Daily"}, "tickers": ["AAPL"]}
+  ]
+}

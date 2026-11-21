@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+openai
+python-dotenv
+httpx
+pytest
+prismtrace-sdk>=0.6.0
+langchain-openai
+langchain-core

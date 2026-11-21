@@ -1,0 +1,15 @@
+{
+  "request_id": "synthetic-0007",
+  "status": "OK",
+  "results": {
+    "ticker": "BRK.B",
+    "name": "Synthetic Holding Co. Class B",
+    "market": "stocks",
+    "locale": "us",
+    "primary_exchange": "XNYS",
+    "type": "CS",
+    "active": true,
+    "currency_name": "usd",
+    "cik": "0001067983"
+  }
+}

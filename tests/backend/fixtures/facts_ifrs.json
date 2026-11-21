@@ -1,0 +1,285 @@
+{
+ "cik": 9999005,
+ "entityName": "Nordlicht Industrie AG",
+ "facts": {
+  "us-gaap": {
+   "Revenues": {
+    "label": "Revenues",
+    "description": "Revenues",
+    "units": {
+     "EUR": [
+      {
+       "start": "2019-01-01",
+       "end": "2019-12-31",
+       "val": 21000000000,
+       "accn": "0009999005-20-000004",
+       "fy": 2019,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2020-03-10"
+      },
+      {
+       "start": "2018-01-01",
+       "end": "2018-12-31",
+       "val": 20100000000,
+       "accn": "0009999005-20-000004",
+       "fy": 2019,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2020-03-10"
+      }
+     ]
+    }
+   }
+  },
+  "ifrs-full": {
+   "Revenue": {
+    "label": "Revenue",
+    "description": "Revenue",
+    "units": {
+     "EUR": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 31250000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 29800000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2022-01-01",
+       "end": "2022-12-31",
+       "val": 27400000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "CostOfSales": {
+    "label": "Cost of sales",
+    "description": "Cost of sales",
+    "units": {
+     "EUR": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 19900000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 19100000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "GrossProfit": {
+    "label": "Gross profit",
+    "description": "Gross profit",
+    "units": {
+     "EUR": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 11350000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 10700000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "ProfitLossFromOperatingActivities": {
+    "label": "Operating profit",
+    "description": "Operating profit",
+    "units": {
+     "EUR": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 3900000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 3550000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "ProfitLossAttributableToOwnersOfParent": {
+    "label": "Profit to owners",
+    "description": "Profit to owners",
+    "units": {
+     "EUR": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 2640000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 2410000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "BasicEarningsLossPerShare": {
+    "label": "Basic EPS",
+    "description": "Basic EPS",
+    "units": {
+     "EUR/shares": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 3.31,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 3.02,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "Assets": {
+    "label": "Assets",
+    "description": "Assets",
+    "units": {
+     "EUR": [
+      {
+       "end": "2024-12-31",
+       "val": 54800000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 52300000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "EquityAttributableToOwnersOfParent": {
+    "label": "Equity to owners",
+    "description": "Equity to owners",
+    "units": {
+     "EUR": [
+      {
+       "end": "2024-12-31",
+       "val": 21900000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 20700000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   },
+   "CashAndCashEquivalents": {
+    "label": "Cash",
+    "description": "Cash",
+    "units": {
+     "EUR": [
+      {
+       "end": "2024-12-31",
+       "val": 4100000000,
+       "accn": "0009999005-25-000003",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "20-F",
+       "filed": "2025-03-12"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

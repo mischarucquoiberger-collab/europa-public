@@ -1,0 +1,230 @@
+.dr2-workspace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0e1420;   /* the brand navy ground, as on Home */
+  color: #e8e8e8;
+  color-scheme: dark;
+}
+
+.dr2-workspace__content {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.dr2-workspace__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  visibility: hidden;
+  background: #0e1420;
+}
+
+.dr2-workspace__frame.is-ready {
+  visibility: visible;
+}
+
+.dr2-workspace__retry {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid #393939;
+  border-radius: 7px;
+  background: #181818;
+  color: #e8e8e8;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dr2-workspace__retry:hover {
+  background: #252525;
+}
+
+.dr2-workspace__retry:focus-visible {
+  outline: 2px solid #e8e8e8;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* the opening screen (DrSplash.jsx / DrSplash.css) covers the content area */
+.dr2-workspace { position: relative; }
+
+/* the memory drawer's overlay slot: above the workspace, transparent to the pointer
+   until a mounted child opts in (see DeepResearch.jsx dr2:memory-drawer) */
+.dr2-workspace__drawer-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.dr2-workspace__drawer-slot:empty { display: none; }
+.dr2-workspace__drawer-slot > * { pointer-events: auto; }
+
+.dr2-report__bar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #222;
+  background: #0e1420;
+}
+
+.dr2-report__back {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.dr2-report__back:focus-visible {
+  outline: 2px solid #e8e8e8;
+  outline-offset: 2px;
+}
+
+/* no workspace service in this build (DeepResearch.jsx WorkspaceOffline): the landing on the navy
+   ground, centred: the CALLISTO lettering, the question box and one status line */
+.dr2-offline {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 16px;
+  background: #0e1420;
+  font-family: "Space Grotesk", Inter, system-ui, -apple-system, sans-serif;
+}
+
+.dr2-offline__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dr2-offline__menu {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  background: transparent;
+  color: #f4f5f7;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+.dr2-offline__menu:hover {
+  border-color: rgba(255, 255, 255, .5);
+  background: rgba(255, 255, 255, .06);
+}
+
+.dr2-offline__menu:focus-visible {
+  outline: 2px solid #f4f5f7;
+  outline-offset: 3px;
+}
+
+/* the CALLISTO lettering of the opening screen, at rest above the question box */
+.dr2-offline__brand {
+  display: block;
+  width: min(250px, 62vw);
+  height: auto;
+  overflow: visible;
+  color: #f4f5f7;
+}
+
+.dr2-offline__composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 768px;
+  margin-top: 20px;
+  padding: 10px 10px 10px 22px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, .05);
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+.dr2-offline__composer:focus-within {
+  border-color: rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .07);
+}
+
+.dr2-offline__input {
+  flex: 1;
+  min-width: 0;
+  max-height: 220px;
+  margin: 0;
+  padding: 7px 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: transparent;
+  color: #f4f5f7;
+  caret-color: #f4f5f7;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.dr2-offline__input::placeholder {
+  color: rgba(255, 255, 255, .38);
+}
+
+.dr2-offline__send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f4f5f7;
+  color: #0e1420;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+.dr2-offline__send:hover {
+  background: #fff;
+}
+
+.dr2-offline__send:disabled {
+  background: rgba(255, 255, 255, .14);
+  color: rgba(255, 255, 255, .45);
+  cursor: default;
+}
+
+.dr2-offline__send:focus-visible {
+  outline: 2px solid #f4f5f7;
+  outline-offset: 3px;
+}
+
+.dr2-offline__line {
+  margin: 0;
+  max-width: 32em;
+  color: rgba(244, 245, 247, .5);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+}

@@ -1,0 +1,11 @@
+{
+  "ticker": "BRK.B",
+  "queryCount": 1,
+  "resultsCount": 1,
+  "adjusted": true,
+  "status": "OK",
+  "request_id": "synthetic-0002",
+  "results": [
+    {"T": "BRK.B", "v": 3300000, "vw": 482.2, "o": 481.6, "c": 483.0, "h": 484.1, "l": 480.9, "t": 1795064400000, "n": 53000}
+  ]
+}

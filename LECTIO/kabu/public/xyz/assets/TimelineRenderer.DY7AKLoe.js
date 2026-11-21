@@ -1,0 +1,1 @@
+import{it as e}from"./advanced-inputs.DVM0L8HV.js";import{n as t,t as n}from"./cite.C7dVmtcJ.js";var r=e();function i(e){let i=t=>n(t,e);return(0,r.jsx)(t,{...e,label:e.visual.title,onItem:i})}export{i as default};

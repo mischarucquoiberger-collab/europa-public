@@ -1,0 +1,1 @@
+function e(e){if(e==null)return!1;let t=document.documentElement.dataset.inputModality;if(t)return t===`keyboard`;try{return e.matches(`:focus-visible`)}catch{return!1}}export{e as t};

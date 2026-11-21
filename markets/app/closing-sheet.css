@@ -1,0 +1,343 @@
+/* The market desk is a single printed sheet. All other routes use the app theme. */
+body:has(.closing-sheet) { background:#0e1420; }
+.closing-sheet {
+  --sheet:#0e1420; --ink:#f4f5f7; --sub:#a9b5c5; --rule:#344153;
+  --blue:#a5bcff; --gain:#85d7ac; --loss:#ff9d86;
+  --signal:var(--blue); --paper:var(--sheet);
+  --ui:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:var(--ui);color:var(--ink);width:min(1200px,92%);padding-top:22px;
+}
+.paper-mast { display:grid; grid-template-columns:auto 1fr minmax(180px,230px); align-items:center; gap:12px 24px; }
+.paper-mast .brand { color:var(--ink);font:300 1.25rem var(--serif);letter-spacing:.08em; }
+.paper-mast .brand-mark { width:27px;height:27px; }
+.paper-date,.quote-date { color:var(--sub);font:.82rem var(--mono); }
+.paper-mast .header-search { width:100%; background:#202c3e;border-radius:24px;border:1px solid transparent;padding:10px 15px; }
+.paper-mast h1 { grid-column:1/-1; margin:14px 0 4px; padding:0; font:650 clamp(2.3rem,4.2vw,3.6rem)/1.08 var(--ui);letter-spacing:-.048em; }
+.closing-sheet .quote-tape {display:flex; flex-wrap:wrap;gap:6px; background:none;border:0;}
+.closing-sheet .watch-row { flex:1 1 145px; padding:11px 14px 13px; background:transparent;border:0;border-radius:13px;box-shadow:none; }
+.closing-sheet .watch-row+.watch-row {border-left:0;}
+.closing-sheet .watch-row:hover,.closing-sheet .watch-row:focus-within {background:#202c3e;}
+.closing-sheet .watch-row[data-selected=true] {background:#202e46;}
+.closing-sheet .watch-row[data-selected=true]::after {content:"";position:absolute;left:14px;bottom:4px;height:2px;border-radius:2px;width:20px;background:var(--blue);pointer-events:none;}
+.closing-sheet .card-name { flex-direction:row;align-items:center;gap:3px;color:var(--blue); }
+.closing-sheet .card-name strong,.closing-sheet .card-name span {color:inherit;}
+.closing-sheet .card-name:hover {background:#e0e6fb;}
+.closing-sheet .strip-name {display:block;color:var(--sub);font-size:.8rem;pointer-events:none;}
+.closing-sheet .tape-price {display:flex;justify-content:flex-start;gap:10px;margin-top:3px;}
+.closing-sheet .tape-price small {font-size:.78rem;}
+.closing-sheet .up,.closing-sheet .quote .up {color:var(--gain);}
+.closing-sheet .down,.closing-sheet .quote .down {color:var(--loss);}
+.closing-sheet .tape-price small::before {content:"";display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:4px;}
+.closing-sheet .tape-price small.up::before {background:#50de58;}
+.closing-sheet .tape-price small.down::before {background:#ff7029;}
+.closing-sheet .market-grid {display:block;margin:14px 0 0;padding:0 clamp(12px,2vw,26px);background:#141d2a;overflow:visible;border:1px solid var(--rule);border-radius:20px;}
+.closing-sheet .chart-panel,.closing-sheet .ledger,.closing-sheet .price-plot {
+  --sub:#a9b5c5;--rule:#344153;--gain:#85d7ac;--loss:#ff9d86;--signal:#a5bcff;
+  color:var(--ink);background:transparent;border:0;border-radius:0;
+}
+.closing-sheet .chart-heading {padding:20px 0 2px;align-items:center;}
+.closing-sheet .chart-heading h2 {font-size:1.45rem;}
+.closing-sheet .chart-heading span,.closing-sheet .quote span {color:var(--sub);}
+.closing-sheet .quote {padding:1px 0 2px;}.closing-sheet .quote strong{font-size:clamp(2rem,3.5vw,3.4rem);}
+.closing-sheet .quote-date {margin-bottom:10px;}
+.closing-sheet .ranges,.closing-sheet .chart-panel .ranges {background:none;}
+.closing-sheet .ranges button {color:var(--sub);}
+.closing-sheet .ranges button[aria-pressed=true] {color:#173cbc;background:#dfe6fc;box-shadow:none;}
+.closing-sheet .chart-body {margin:0;}
+.closing-sheet .price-rule {stroke:#344153;}
+.closing-sheet .series-line {stroke:var(--blue);}
+.closing-sheet .series-area {fill:none;}
+.closing-sheet .volume-bar {fill:#c4ceda;}
+.closing-sheet .price-plot text {fill:#bcc6d2;}
+.closing-sheet .price-plot circle {fill:var(--blue);stroke:white;}
+.closing-sheet .price-plot [stroke-dasharray] {stroke:#637664;}
+.closing-sheet .session-tip {background:#141d2a;color:var(--ink);border:1px solid var(--rule);border-radius:12px;box-shadow:0 4px 18px #12233616;}
+.closing-sheet .session-tip time {color:var(--sub);}
+.closing-sheet .chart-stats {padding:10px 0;}
+.closing-sheet .ledger {border-top:1px solid var(--rule);padding:12px 0;}
+.closing-sheet .ledger h2 button {font:600 .95rem system-ui;}
+.closing-sheet .news-section {padding:16px 0 20px;}
+.closing-sheet .news-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;}
+.closing-sheet .news-grid article {display:flex;flex-direction:column;gap:4px;padding:10px 0;border:0;border-top:1px solid var(--rule);border-radius:0;background:transparent;}
+.closing-sheet .news-grid article h3 {margin:0;font:600 1rem/1.32 var(--ui);letter-spacing:-.015em;}
+.closing-sheet .news-grid small {color:var(--sub);font-size:.75rem;}
+.closing-sheet .news-grid details {font-size:.83rem;color:var(--sub);}
+.closing-sheet .news-grid summary {cursor:pointer;width:fit-content;padding:3px 0;}
+.closing-sheet .news-grid details p {margin:6px 0;color:var(--ink);line-height:1.5;}
+.closing-sheet .stock-link {background:none;color:#afc4ff;padding:1px 3px;}
+.closing-sheet .analytics,.closing-sheet .bottom-row {border:1px solid var(--rule);background:#141d2a;border-radius:18px;}
+.closing-sheet .returns-chart {background:transparent;}.closing-sheet .returns-chart text {fill:var(--sub);}
+.closing-sheet .returns-chart polyline {filter:brightness(.57) saturate(1.9);}
+.closing-sheet footer .brand {color:var(--ink);}
+ .closing-sheet :is(.news-section,.analytics,.lower-heading,.panel-head) h2 {font:650 clamp(1.45rem,2.3vw,2rem)/1.18 var(--ui);letter-spacing:-.035em;}
+.closing-sheet .card-name strong,.closing-sheet .chart-heading h2 {font-family:var(--ui);font-weight:680;}
+.closing-sheet .card-hit:focus-visible,.paper-mast .header-search:focus-within {outline:2px solid var(--blue);outline-offset:2px;}
+.closing-sheet .ranges {gap:4px;}
+.closing-sheet .ranges button {min-height:34px;border-radius:20px;}
+.closing-sheet .stock-link {display:inline-flex;align-items:center;background:#253347;border-radius:20px;padding:3px 9px;font:600 .8rem var(--ui);}
+.closing-sheet .analytics input,.closing-sheet .analytics select,.closing-sheet .earnings input {border-color:#cdd5df;border-radius:12px;}
+.closing-sheet .chart-stats {border:0;}
+.closing-sheet .ledger h2 button {padding:5px 10px;background:#233146;border-radius:20px;}
+@media(max-width:760px) {
+ .closing-sheet {width:calc(100% - 32px);padding-top:16px;}
+ .paper-mast {grid-template-columns:auto 1fr;gap:10px;}
+ .paper-date {text-align:right;font-size:.69rem;}
+ .paper-mast h1 {grid-row:2;margin:0;padding:12px 0;}
+ .paper-mast .header-search {grid-column:1/-1;grid-row:3;margin:0 0 7px;}
+ .closing-sheet .watch-row {flex:1 1 30%;padding:8px 6px;}
+ .closing-sheet .watch-row+.watch-row {border:0;}
+ .closing-sheet .watch-row[data-selected=true]::after {left:6px;}
+ .closing-sheet .tape-price {gap:2px 6px;}
+ .closing-sheet .chart-heading {gap:6px;}
+ .closing-sheet .chart-heading>div:first-child {max-width:52%;}
+ .closing-sheet .chart-heading span {font-size:.8rem;}
+ .closing-sheet .chart-stats {gap:8px;}
+ .closing-sheet .news-grid {display:block;}
+
+}
+
+/* Instrument pages share the desk's masthead, briefing and light plot palette. */
+.ticker-mast {grid-template-columns:1fr minmax(180px,230px);}
+.ticker-mast>a {justify-self:start;}
+.stock-page.closing-sheet header {border:0;padding:30px 0 18px;}
+.stock-page.closing-sheet h1 {font:650 clamp(1.7rem,3.2vw,2.7rem)/1.12 var(--ui);letter-spacing:-.04em;}
+.stock-page.closing-sheet .instrument-plot {background:#141d2a;border:1px solid var(--rule);border-radius:20px;padding:clamp(10px,2vw,24px);}
+.stock-page.closing-sheet .price-plot {background:#141d2a;}
+.stock-page.closing-sheet .chart-toolbar h2,.stock-page.closing-sheet .earnings h2 {font:650 clamp(1.35rem,2vw,1.8rem)/1.15 var(--ui);letter-spacing:-.035em;}
+.stock-page .candle.rising {stroke:#11704d;}
+.stock-page .candle.rising rect {fill:white;}
+.stock-page .candle.falling {stroke:#aa461f;}
+.stock-page .candle.falling rect {fill:#cb633e;}
+@media(max-width:760px){
+  .ticker-mast {grid-template-columns:1fr;}
+  .ticker-mast .header-search {grid-row:2;}
+}
+
+.closing-sheet {color-scheme:dark;}
+.paper-mast h1 {font-family:"Space Grotesk",var(--ui);font-weight:500;}
+
+.market-intro {padding:clamp(12px,3vw,36px) 0 18px;border-bottom:1px solid var(--rule);}
+.market-intro h1 {margin:0 0 6px;font:500 clamp(2.4rem,5vw,4.2rem)/1.05 var(--ui);letter-spacing:-.05em;}
+.market-intro .paper-date {text-align:left;}
+.market-tools {display:flex;justify-content:flex-end;margin:14px 0 8px;}
+.market-tools .header-search {width:min(100%,240px);background:#182332;color:var(--ink);border:1px solid var(--rule);}
+.market-tools input {color:inherit;}
+.market-tools input::placeholder {color:var(--sub);}
+@media(max-width:760px){.market-tools .header-search {width:100%;}}
+
+.market-tools .header-search {width:min(100%,350px);}
+.closing-sheet .earnings input,.closing-sheet .analytics input,.closing-sheet .analytics select {
+ background:#182332;color:#f4f5f7;border:1px solid #536174;border-radius:8px;padding:.5rem .7rem;
+}
+.closing-sheet .earnings form button,.closing-sheet .analytics form button,.closing-sheet .more-stories,
+.header-search button {border:1px solid #506073;border-radius:8px;background:#233146;color:#f4f5f7;padding:.45rem .75rem;font:500 .85rem var(--ui,sans-serif);}
+.header-search button:disabled {opacity:.55;}
+.header-search .search-result {background:#182332;color:#f4f5f7;border:1px solid #506073;border-radius:8px;}
+.header-search .search-result a {display:block;padding:.45rem;}
+.header-search .search-result a:is(:hover,:focus-visible) {background:#2c3950;}
+
+.closing-sheet .ranges {display:inline-flex;align-items:center;gap:2px;padding:3px;background:#101824;border:1px solid #344153;border-radius:10px;}
+.closing-sheet .ranges button {min-height:32px;padding:4px 10px;border:0;border-radius:7px;color:#bac5d4;font:550 .84rem var(--ui);}
+.closing-sheet .ranges button[aria-pressed=true] {background:#324158;color:#fff;box-shadow:0 1px 3px #0003;}
+.closing-sheet :is(.analytics,.earnings) :is(form, label) {display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.closing-sheet :is(.analytics,.earnings) :is(input,select,form button),.closing-sheet .more-stories {
+ min-height:36px;padding:6px 12px;border:1px solid #435268;border-radius:8px;background:#1b2737;color:#edf1f7;font:500 .88rem var(--ui);
+}
+.closing-sheet :is(.analytics,.earnings) :is(input,select) {background:#101824;}
+.closing-sheet .more-stories {margin-top:5px;}
+.closing-sheet .comparison-legend>div {background:#1b2737;border-radius:5px;padding:4px 8px;}
+.closing-sheet .returns-chart polyline {filter:none;}
+.closing-sheet :is(button,select,summary):hover {filter:brightness(1.15);}
+.closing-sheet :is(input,select,button,summary,a):focus-visible {outline:2px solid #a5bcff;outline-offset:2px;}
+
+.closing-sheet .news-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.closing-sheet .news-grid article {--accent:#83abd9;background:#182230;border:1px solid #303d4f;border-inline-start:3px solid var(--accent);border-radius:10px;padding:12px 15px;gap:6px;min-width:0;}
+.closing-sheet .news-grid article:nth-child(4n+2){--accent:#b09bc9;}
+.closing-sheet .news-grid article:nth-child(4n+3){--accent:#73b8ae;}
+.closing-sheet .news-grid article:nth-child(4n){--accent:#d6a582;}
+.closing-sheet .news-grid article summary {color:var(--accent);}
+.closing-sheet .news-grid article h3 a:hover {text-decoration:underline;text-underline-offset:3px;}
+.closing-sheet .ipo-entry summary {cursor:pointer;list-style:none;}
+.closing-sheet .ipo-entry summary::-webkit-details-marker {display:none;}
+.ipo-entry dl {margin:0 0 10px;padding:12px 16px;display:grid;grid-template-columns:auto 1fr;gap:5px 15px;background:#1a2635;border-radius:8px;}
+.ipo-entry dt {color:var(--sub);} .ipo-entry dd {margin:0;}
+.closing-sheet :is(.analytics,.earnings) form {align-items:end;gap:8px;}
+.closing-sheet .analytics form label {display:grid;gap:5px;color:var(--sub);font-size:.82rem;}
+.closing-sheet .earnings form {display:grid;grid-template-columns:minmax(6rem,10rem) max-content;justify-content:start;gap:5px 8px;}
+.closing-sheet .earnings form label {grid-column:1/-1;color:var(--sub);font-size:.82rem;}
+.closing-sheet :is(.earnings,.analytics) form button {color:#101923;background:#bdd2e9;border-color:transparent;}
+.closing-sheet .analytics form button:disabled {background:#263344;color:#a8b3c3;}
+@media(max-width:640px){.closing-sheet .news-grid {grid-template-columns:1fr;}}
+
+.closing-sheet .bottom-row {display:grid;grid-template-columns:minmax(0, .85fr) minmax(0,1.35fr);gap:16px;align-items:start;border:0;background:transparent;overflow:visible;}
+.closing-sheet .bottom-row>.panel {min-width:0;padding:clamp(16px,2vw,24px);background:#141d2a;border:1px solid var(--rule);border-radius:14px;}
+.closing-sheet .bottom-row .panel-head {align-items:baseline;flex-wrap:wrap;gap:8px;}
+.closing-sheet .bottom-row .panel-head h2 {font-size:clamp(1.2rem,2vw,1.5rem);}
+.closing-sheet .listing {display:grid;grid-template-columns:4rem 1fr auto;gap:10px;padding:12px 0;}
+.calendar-more {padding:10px 0;color:#abc8ed;font-weight:550;}
+.closing-sheet .earnings form {grid-template-columns:max-content max-content;}
+.closing-sheet .earnings .filings-scroll {font-variant-numeric:tabular-nums;}
+.closing-sheet .earnings .table-units {color:var(--sub);font-size:.8rem;padding-bottom:8px;}
+.closing-sheet .earnings td a {background:transparent;color:#b1d1fa;padding:2px;text-decoration:underline;text-underline-offset:3px;}
+.closing-sheet .earnings :is(td,th) {padding:10px 5px;white-space:nowrap;}
+.closing-sheet .earnings thead th {color:#bec9d6;font-size:.83rem;font-weight:550;}
+.return-inspector,.return-quotes {display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;}
+.return-inspector {padding:14px 0;margin-bottom:22px;border-bottom:1px solid var(--rule);}
+.return-quotes span {display:inline-flex;align-items:center;gap:6px;font-size:.85rem;color:var(--sub);}
+.return-quotes strong {color:var(--ink);font-variant-numeric:tabular-nums;}
+.return-quotes i {width:8px;height:8px;border-radius:50%;}
+@media(max-width:950px){.closing-sheet .bottom-row {grid-template-columns:minmax(0,1fr);}}
+
+.closing-sheet .quote>strong span:not(.count-accessible) {font:inherit;letter-spacing:normal;color:var(--ink);}
+.closing-sheet .headlines {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:8px;padding:12px 0;}
+.closing-sheet .headlines a {display:grid;align-content:start;gap:5px;padding:12px;border-radius:9px;background:#192536;color:#edf1f7;line-height:1.35;}
+.closing-sheet .headlines a small {color:#a7b8cd;font-size:.75rem;}
+.closing-sheet .headlines a:hover {background:#233248;color:white;}
+.saved-watch {padding:18px;margin:16px 0;background:#141d2a;border:1px solid var(--rule);border-radius:14px;}
+.saved-watch header,.saved-watch form {display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.saved-watch header {justify-content:space-between;margin-bottom:12px;}
+.saved-watch input,.saved-watch button {background:#233146;color:var(--ink);border-radius:6px;padding:6px 9px;}
+.saved-watch input {width:105px;border:1px solid var(--rule);}
+.saved-watch table {width:100%;font-variant-numeric:tabular-nums;font-size:.9rem;}
+.saved-watch :is(td,th){text-align:right;padding:6px 3px;border-bottom:1px solid var(--rule);}
+.saved-watch th:first-child{text-align:left;}
+.saved-watch button:disabled{opacity:.5;}
+@media(prefers-reduced-motion:no-preference){
+.series-line {stroke-dasharray:1;animation:draw-price 850ms ease-out both;}
+.series-area,.candle,.volume-bar {animation:reveal-price 700ms ease-out both;}
+@keyframes draw-price {from{stroke-dashoffset:1;}to{stroke-dashoffset:0;}}
+@keyframes reveal-price {from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+}
+
+.saved-watch .watch-expand {background:transparent;color:#bfd0e6;padding:6px;}
+.watch-stats {display:flex;flex-wrap:wrap;gap:12px 30px;text-align:left;padding:12px 16px;background:#1a2635;margin:0;border-radius:8px;}
+.watch-stats dt {font-size:.8rem;color:var(--sub);}
+.watch-stats dd {margin:4px 0 0;font-variant-numeric:tabular-nums;}
+.saved-watch tbody tr:hover {background:#192536;}
+.closing-sheet .analytics .muted {max-width:66ch;line-height:1.5;}
+@media(prefers-reduced-motion:no-preference){
+ .saved-watch tbody tr,.comparison-legend>div,.news-grid details[open] p {animation:market-arrive 220ms ease-out both;}
+ .closing-sheet .news-grid article {animation:market-arrive 320ms ease-out backwards;}
+ .closing-sheet .news-grid article:nth-child(2n){animation-delay:60ms;}
+ .closing-sheet .news-grid article:nth-child(3n){animation-delay:110ms;}
+ .returns-chart[data-drawn="true"] polyline {stroke-dasharray:1;animation:draw-price 850ms ease-out both;}
+ @keyframes market-arrive {from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+ @keyframes market-trace {from{clip-path:inset(0 100% 0 0);}to{clip-path:inset(0);}}
+}
+
+.closing-sheet .listing:is(:hover,:focus-visible),.closing-sheet .ledger tr.pinned,
+.closing-sheet .ledger tr:has(button:hover),.closing-sheet .analytics button:not(:disabled):hover,
+.closing-sheet .news-section article h3 a:is(:hover,:focus-visible),
+.closing-sheet .stock-link:hover,.closing-sheet .card-name:hover,.closing-sheet .ranges button:hover {
+  background:#29394c;color:#f3f7fa;
+}
+.closing-sheet ::selection {background:#425f82;color:white;}
+.closing-sheet .listing .exchange {display:inline-flex;align-items:center;gap:6px;}
+.ipo-entry[open] .exchange svg {transform:rotate(180deg);}
+.closing-sheet .ipo-entry dl,.closing-sheet .watch-stats {display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:14px;padding:14px;border-inline-start:2px solid #7e9abb;}
+.ipo-entry dl dt {font-size:.78rem;color:#b5c3d2;}
+.ipo-entry dl dd {margin-top:4px;font-variant-numeric:tabular-nums;text-transform:capitalize;}
+.closing-sheet .news-section>h2 {font-family:Georgia,serif;font-weight:500;border-top:3px double #536578;padding-top:12px;letter-spacing:-.025em;}
+.closing-sheet .news-grid article h3 {font-family:Georgia,serif;font-weight:500;font-size:1.14rem;line-height:1.3;}
+@media(prefers-reduced-motion:no-preference){
+ .ipo-entry .exchange svg {transition:transform 180ms ease;}
+ .ipo-entry[open] dl {animation:market-arrive 200ms ease-out;}
+
+}
+
+.closing-sheet .news-section>h2 {font:650 clamp(1.45rem,2vw,1.9rem)/1.2 var(--ui);border:0;letter-spacing:-.035em;}
+.closing-sheet .news-grid article {display:block;background:#192330;border:1px solid #344151;border-radius:16px;padding:16px;animation:none;}
+.closing-sheet .news-grid article h3 {font:610 clamp(1rem,1.5vw,1.24rem)/1.28 var(--ui);letter-spacing:-.025em;margin:7px 0 10px;}
+.news-photo {float:right;width:clamp(72px,8vw,108px);aspect-ratio:1;object-fit:cover;border-radius:9px;margin:0 0 8px 14px;}
+.news-grid details[open] {clear:both;}
+
+@media(min-width:1100px){
+ .shell.closing-sheet:not(.stock-page) {width:calc(100% - clamp(48px,7vw,136px));max-width:1860px;}
+ .desk-columns {display:grid;grid-template-columns:minmax(0,1.85fr) minmax(355px,1fr);gap:18px;align-items:stretch;margin-top:16px;}
+ /* The chart card sets the row height; the rail fills exactly that height
+    (height:0 stops the rail from making the row taller) so both bottoms line up.
+    Technicals takes the leftover space and scrolls if it ever runs out. */
+ .desk-rail {height:0;min-height:100%;}
+ .desk-rail .technicals {flex:1;min-height:0;overflow-y:auto;}
+ .closing-sheet .desk-columns>:is(.market-grid,.saved-watch) {margin:0;min-width:0;}
+ .desk-columns .saved-watch header {gap:12px;}
+ .desk-columns .watch-stats {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+
+.desk-rail {min-width:0;display:flex;flex-direction:column;gap:14px;}
+.desk-rail .saved-watch {margin:0;}
+/* Technicals card (app/technicals.tsx)
+   Compact layout so it fits in the rail next to the chart card:
+   header → 5 performance tiles → full-width rows (trend, 52-week)
+   → one row of three small metrics (RSI, volatility, volume). */
+.technicals {display:flex;flex-direction:column;padding:16px 18px;border:1px solid var(--rule);border-radius:14px;background:#141d2a;}
+.technicals h2 {font:600 1.05rem var(--ui);margin:0;}
+.technicals header p,.technicals-empty {color:var(--sub);font-size:.78rem;margin:2px 0 0;}
+.technicals-perf {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin:10px 0 6px;}
+.technicals-perf div {display:grid;gap:1px;padding:5px 3px;border-radius:8px;background:#1b2636;text-align:center;}
+.technicals-perf span {color:var(--sub);font-size:.68rem;}
+.technicals-perf b {font-size:.78rem;font-variant-numeric:tabular-nums;}
+.technicals-list {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:14px;margin:0;}
+.technicals-list>div {min-width:0;padding:7px 0;border-top:1px solid var(--rule);}
+.technicals-list>.wide {grid-column:1/-1;}
+.technicals-list dt {color:var(--sub);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;}
+.technicals-list dd {margin:0;font-size:.8rem;color:var(--sub);font-variant-numeric:tabular-nums;}
+.technicals-list strong {color:var(--ink);font-weight:600;}
+.technicals-list strong.up {color:var(--gain);}
+.technicals-list strong.down {color:var(--loss);}
+.technicals-trend {display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.technicals-chips {display:flex;gap:5px;}
+.technicals-chips span {padding:1px 7px;border-radius:20px;background:#1b2636;font-size:.7rem;}
+.technicals-meter {position:relative;display:block;height:4px;margin:6px 5px 1px;border-radius:8px;
+  background:linear-gradient(90deg,#41536d,#9cbaec);}
+.technicals-meter i {position:absolute;top:50%;width:9px;height:9px;border-radius:50%;transform:translate(-50%,-50%);background:#f4f5f7;outline:2px solid #141d2a;}
+@media(max-width:1099px){.desk-rail {margin-top:14px;}}
+
+/* ---------------------------------------------------------------
+   Loading states
+   One shimmer used everywhere: .sk is a grey block that pulses.
+   Size it with inline width/height or the .sk-* helpers.
+   Panels waiting on fresh data get [data-loading="true"], which
+   dims them slightly instead of emptying them out.
+   --------------------------------------------------------------- */
+.sk {display:block;border-radius:6px;background:#1e2a3a;position:relative;overflow:hidden;}
+.sk::after {content:"";position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,#2b3a4e,transparent);}
+.sk-text {height:.72em;margin:.18em 0;}
+.sk-line {height:1px;background:var(--rule);}
+.sk-chart {height:var(--chart-h,305px);border-radius:10px;}
+
+/* Keep numbers and labels from jumping while new data arrives. */
+.closing-sheet [data-loading="true"] {opacity:.65;}
+
+@media(prefers-reduced-motion:no-preference){
+  .sk::after {animation:sk-sweep 1.25s infinite;}
+  @keyframes sk-sweep {to {transform:translateX(100%);}}
+  .closing-sheet [data-loading] {transition:opacity 180ms ease;}
+  /* Fresh values fade in rather than popping. */
+  .fade-in {animation:fade-in 260ms ease-out both;}
+  @keyframes fade-in {from{opacity:0;}to{opacity:1;}}
+}
+
+/* Skeleton shapes sized to match the real content (see app/skeletons.tsx). */
+.sk-price {width:min(42%,230px);height:clamp(2rem,3.5vw,3.4rem);border-radius:10px;}
+.chart-skeleton {display:grid;gap:8px;}
+.chart-skeleton-axis {display:flex;justify-content:space-between;}
+.row-skeleton {display:grid;gap:2px;padding:4px 0;}
+.row-skeleton>div {display:grid;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule);}
+.headline-skeleton {display:grid;gap:6px;padding:12px;border-radius:9px;background:#192536;}
+.technicals-skeleton {display:flex;flex-direction:column;}
+.technicals-skeleton-row {display:grid;gap:5px;padding:9px 0;border-top:1px solid var(--rule);}
+
+/* A shimmer bar that takes the size of the text it replaces: the text is kept
+   in the DOM but made invisible, so the line box matches the loaded page. */
+/* `display:inline` (not inline-block) so the bar occupies exactly the same
+   line box as the text it stands in for, keeping the page height identical. */
+.sk-ghost {display:inline;color:transparent;border-radius:6px;
+  background:#1e2a3a;position:relative;user-select:none;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+/* Inline boxes can't clip a sweeping gradient, so these pulse instead. */
+@media(prefers-reduced-motion:no-preference){
+  .sk-ghost {animation:sk-pulse 1.4s ease-in-out infinite;}
+  @keyframes sk-pulse {0%,100%{background-color:#1e2a3a;} 50%{background-color:#2a3849;}}
+}
+.stock-page .sk-chart {--chart-h:305px;}

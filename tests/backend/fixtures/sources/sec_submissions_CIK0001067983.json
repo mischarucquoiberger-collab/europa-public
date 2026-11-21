@@ -1,0 +1,22 @@
+{
+  "cik": "1067983",
+  "entityType": "operating",
+  "name": "BERKSHIRE HATHAWAY INC",
+  "tickers": ["BRK-B", "BRK-A"],
+  "fiscalYearEnd": "1231",
+  "filings": {
+    "recent": {
+      "accessionNumber": ["0000950170-25-100001", "0001067983-25-000010", "0000950170-25-020002",
+                          "0000950170-24-110003", "0001193125-25-000099"],
+      "filingDate": ["2025-08-04", "2025-05-03", "2025-02-24", "2024-11-04", "2025-06-01"],
+      "reportDate": ["2025-06-30", "2025-05-03", "2024-12-31", "2024-09-30", ""],
+      "form": ["10-Q", "8-K", "10-K", "10-Q", "SC 13G"],
+      "primaryDocument": ["brka-20250630.htm", "brk8k-20250503.htm", "brka-20241231.htm",
+                          "brka-20240930.htm", "sc13g.htm"]
+    },
+    "files": [
+      {"name": "CIK0001067983-submissions-001.json", "filingCount": 3,
+       "filingFrom": "2008-01-01", "filingTo": "2009-12-31"}
+    ]
+  }
+}

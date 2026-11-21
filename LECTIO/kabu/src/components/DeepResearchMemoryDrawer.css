@@ -1,0 +1,145 @@
+/* Deep Research > Memory drawer: a slim tab on the right edge and a side panel over the
+   workspace. Monochrome, like the DR page; it never covers the frame until opened. */
+.drmem {
+  --drmem-bg: #0e1420;   /* the DR page's navy ground */
+  --drmem-line: #1d1d1d;
+  --drmem-text: #ececec;
+  --drmem-muted: #8f8f8f;
+  --drmem-soft: #b4b4b4;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  pointer-events: none;
+  color-scheme: dark;
+}
+.drmem, .drmem *, .drmem *::before, .drmem *::after { box-sizing: border-box; }
+.drmem__tab {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 7px;
+  border: 1px solid #2a2a2a;
+  border-right: 0;
+  border-radius: 8px 0 0 8px;
+  background: rgba(14, 20, 32, .92);
+  color: #d9d9d9;
+  font: 500 11px/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background .15s ease, color .15s ease;
+}
+.drmem__tab:hover { background: #151515; color: #fff; }
+.drmem__tab:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.drmem.is-open .drmem__tab { right: min(400px, 100vw); }
+.drmem__dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #f85931;
+  box-shadow: 0 0 0 3px rgba(248, 89, 49, .18);
+  animation: drmem-glow 2.4s ease-in-out infinite;
+}
+@keyframes drmem-glow {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(248, 89, 49, .18), 0 0 0 0 rgba(248, 89, 49, 0); }
+  50% { box-shadow: 0 0 0 3px rgba(248, 89, 49, .28), 0 0 10px 2px rgba(248, 89, 49, .55); }
+}
+@media (prefers-reduced-motion: reduce) { .drmem__dot { animation: none; } }
+.drmem__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(400px, 100vw);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 22px 20px 28px;
+  border-left: 1px solid var(--drmem-line);
+  background: var(--drmem-bg);
+  color: var(--drmem-text);
+  box-shadow: -24px 0 48px rgba(0, 0, 0, .45);
+  pointer-events: auto;
+  outline: none;
+  animation: drmem-in .18s ease-out;
+}
+@keyframes drmem-in { from { transform: translateX(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .drmem__panel { animation: none; } }
+.drmem__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.drmem__title { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.drmem__title::after { content: ""; display: block; width: 24px; height: 1px; margin-top: 10px; background: #f85931; }
+.drmem__sub { margin: 6px 0 0; color: var(--drmem-muted); font-size: 12.5px; line-height: 1.5; }
+.drmem__close {
+  min-width: 36px; min-height: 36px; border: 1px solid #2a2a2a; border-radius: 8px;
+  background: transparent; color: #ddd; font-size: 20px; line-height: 1; cursor: pointer;
+}
+.drmem__close:hover { background: #151515; }
+.drmem__close:focus-visible, .drmem__btn:focus-visible, .drmem__input:focus-visible, .drmem__link:focus-visible {
+  outline: 2px solid #fff; outline-offset: 2px;
+}
+.drmem__message { margin: 14px 0 0; padding: 8px 10px; border: 1px solid #2a2a2a; border-radius: 8px; color: #ddd; font-size: 13px; }
+.drmem__section { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--drmem-line); }
+.drmem__h {
+  margin: 0 0 10px; color: var(--drmem-muted); font: 500 11px/1.3 ui-monospace, 'SF Mono', Menlo, monospace;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.drmem__learned > summary { cursor: pointer; list-style: none; }
+.drmem__learned > summary::-webkit-details-marker { display: none; }
+.drmem__learned > summary::before { content: '+ '; }
+.drmem__learned[open] > summary::before { content: '− '; }
+.drmem__question { margin: 0 0 10px; color: var(--drmem-text); font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.drmem__meta { margin-left: 6px; color: var(--drmem-muted); font: 12px/1.4 ui-monospace, 'SF Mono', Menlo, monospace; }
+.drmem__empty { margin: 0; color: var(--drmem-muted); font-size: 13px; line-height: 1.5; }
+.drmem__list { margin: 0; padding: 0; list-style: none; }
+.drmem__list > li:last-child { border-bottom: 0; }
+.drmem__used { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid #121212; }
+.drmem__used-title { min-width: 0; color: var(--drmem-soft); font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.drmem__why {
+  flex: none; padding: 2px 7px; border: 1px solid #2c2c2c; border-radius: 999px; color: #cfcfcf;
+  font: 11px/1.5 ui-monospace, 'SF Mono', Menlo, monospace; white-space: nowrap;
+}
+.drmem__why.is-company { border-color: #5a5a5a; color: #fff; }
+.drmem__suggestion { padding: 10px 0 12px; border-bottom: 1px solid #121212; }
+.drmem__suggestion-text { margin: 0 0 8px; color: var(--drmem-text); font-size: 13.5px; line-height: 1.5; overflow-wrap: anywhere; }
+.drmem__codes { display: inline-flex; flex-wrap: wrap; gap: 4px; margin: 0 0 0 6px; vertical-align: middle; }
+.drmem__code { padding: 1px 6px; border-radius: 4px; background: #161616; color: #d6d6d6; font: 11px/1.5 ui-monospace, 'SF Mono', Menlo, monospace; }
+.drmem__actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.drmem__btn {
+  min-height: 32px; padding: 5px 12px; border: 1px solid #333; border-radius: 7px; background: transparent;
+  color: #e6e6e6; font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.drmem__btn:hover:not(:disabled) { background: #161616; }
+.drmem__btn.is-primary { border-color: #e9e9e9; background: #f2f2f2; color: #000; }
+.drmem__btn.is-primary:hover:not(:disabled) { background: #fff; }
+.drmem__btn:disabled { opacity: .45; cursor: default; }
+.drmem__form { display: grid; gap: 8px; margin-bottom: 8px; }
+.drmem__row { display: flex; gap: 8px; }
+.drmem__input {
+  width: 100%; min-height: 36px; padding: 7px 10px; border: 1px solid #2c2c2c; border-radius: 7px;
+  background: #0d0d0d; color: #f0f0f0; font: inherit; font-size: 13px; line-height: 1.45;
+}
+.drmem__input::placeholder { color: #666; }
+.drmem__input--codes { font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+.drmem__textarea { min-height: 72px; resize: vertical; }
+.drmem__item { padding: 10px 0; border-bottom: 1px solid #121212; }
+.drmem__item.is-superseded { opacity: .55; }
+.drmem__item-main { min-width: 0; }
+.drmem__item-title { color: var(--drmem-text); font-size: 13.5px; line-height: 1.45; overflow-wrap: anywhere; }
+.drmem__item-body { margin: 4px 0 0; color: var(--drmem-muted); font-size: 12.5px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 6em; overflow: auto; }
+.drmem__foot { margin-top: 22px; }
+.drmem__link { color: #cfcfcf; font-size: 12.5px; text-underline-offset: 3px; }
+@media (max-width: 640px) {
+  .drmem__tab { padding: 12px 6px; }
+  .drmem.is-open .drmem__tab { display: none; }
+  .drmem__panel { width: 100vw; border-left: 0; padding: 18px 16px 24px; }
+}
+
+/* Phones: the composer and the report cards span the width, so the tab sits high on
+   the edge, under the workspace header, and slimmer: it never covers the composer. */
+@media (max-width: 640px) {
+  .drmem__tab { top: 112px; transform: none; padding: 10px 4px; font-size: 10px; }
+}

@@ -1,0 +1,10 @@
+{
+  "request_id": "synthetic-0006",
+  "status": "OK",
+  "results": [
+    {"ticker": "AAPL", "ex_dividend_date": "2026-11-09", "pay_date": "2026-11-13", "cash_amount": 0.27,
+     "currency": "USD", "frequency": 4, "distribution_type": "recurring"},
+    {"ticker": "AAPL", "ex_dividend_date": "2026-08-10", "pay_date": "2026-08-14", "cash_amount": 0.26,
+     "currency": "USD", "frequency": 4, "distribution_type": "recurring"}
+  ]
+}

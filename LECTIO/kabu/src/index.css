@@ -1,0 +1,427 @@
+/* Michroma: the Indago website's face (OFL, src/assets/fonts/Michroma-OFL.txt), used only by
+   the Deep Research opening's DEEP RESEARCH lockup; the pages use their plain type (owner 2026-10-13). */
+@font-face {
+  font-family: "Michroma";
+  src: url("./assets/fonts/michroma-latin.woff2") format("woff2");
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* the brand navy #0e1420 and its light ink #f4f5f7 */
+    --background: 220 39% 9%;
+    --foreground: 220 16% 96%;
+    --card: 220 39% 9%;
+    --card-foreground: 220 16% 96%;
+    --popover: 220 34% 12%;
+    --popover-foreground: 220 16% 96%;
+    --primary: 220 16% 96%;
+    --primary-foreground: 220 39% 9%;
+    --secondary: 220 30% 16%;
+    --secondary-foreground: 220 16% 96%;
+    --muted: 220 30% 16%;
+    --muted-foreground: 220 12% 68%;
+    --accent: 220 30% 16%;
+    --accent-foreground: 220 16% 96%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 220 16% 96%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }}
+
+/* ── Global responsive foundation (public beta: must work on every screen) ──
+   Never allow horizontal PAGE scrolling. This is the catch-all that prevents
+   a stray fixed-width element, a 100vw block, or the Dashboard slide-out
+   (which translates the page sideways) from creating a horizontal scrollbar /
+   blank gutter on phones. Nested horizontal scrollers (data tables wrapped in
+   overflow-x:auto, the Satellite slider track) are unaffected — they clip/scroll
+   inside their own box, not the document. All `position: sticky` usage in the app
+   lives inside those nested containers, so this does not break sticky headers. */
+html, body {
+  /* iOS rubber-band: stop the page bouncing past the top/bottom, which revealed a
+     black band behind the content on phones. Also disables pull-to-refresh.
+     Only affects the DOCUMENT bounce — nested scrollers (chat threads, data
+     tables) keep their own behaviour. */
+  overscroll-behavior-y: none;
+}
+
+/* NavigationTracker moves focus to the new page's <h1> after each route change
+   so screen readers announce the page. That programmatic focus made the browser
+   paint its grey focus ring around the heading (e.g. "Research"). tabindex="-1"
+   headings are never Tab-reachable, so hiding the
+   ring loses nothing for keyboard users — the focus move itself is untouched. */
+h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* Shared modal/menu scroll ownership. Multiple overlays can hold this lock at
+   once; the helper removes the attribute only after the final owner closes.
+   The lock MUST live on <html>: body{overflow:hidden} only propagates to the
+   viewport when html's overflow is visible in BOTH axes — our html has
+   overflow-x:hidden (below), so the old body-level rule silently NEVER locked
+   the viewport (adversarially proven: 16/16 wheel scrolls succeeded while
+   "locked") while ALSO turning <body> into a scroll container that un-pinned
+   every position:sticky descendant. Locking <html> itself blocks real
+   scrolling AND leaves sticky anchored to the unchanged viewport scrollport. */
+html:has(body[data-indago-scroll-lock]) {
+  overflow: hidden !important;
+}
+
+/* iOS: keep tap highlight subtle, allow text selection where intended */
+html {
+  /* overflow-x:hidden lives on <html> ONLY (the root scroll container), never on
+     <body>. On <body>, overflow-x:hidden coerces overflow-y to `auto`, making
+     body its OWN scroll container; since body's content fits exactly it can't
+     scroll, and with overscroll-behavior:none the trackpad/wheel scroll is
+     SWALLOWED instead of chaining to <html> — the page won't scroll by trackpad
+     (only by scrollbar drag / programmatic). Keeping it on <html> alone clips
+     stray horizontal overflow (wide elements, the Dashboard slide-out) exactly
+     the same, while leaving <html> as the sole vertical scroller. */
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  /* The ROOT element paints the iOS overscroll/rubber-band area (not <body>).
+     With no background it fell back to BLACK on phones; match the app's light
+     canvas: the brand navy, so any overscroll shows the page ground, never a
+     white or black gutter. */
+  background: #0e1420;
+}
+/* Dynamic-viewport-height helpers. On phones the URL/toolbar chrome makes 100vh
+   taller than the visible area, cutting off the bottom of full-page screens.
+   These prefer 100dvh and cleanly fall back to 100vh on browsers without dvh. */
+.minh-screen-dvh { min-height: 100vh; min-height: 100dvh; }
+.h-screen-dvh { height: 100vh; height: 100dvh; }
+
+/* iOS auto-zooms the whole page when you focus an input whose font-size is
+   under 16px, then leaves the layout zoomed/shifted. Force a 16px floor on form
+   controls on phones so focusing never triggers that zoom. (Components with a
+   larger explicit size keep it; this only raises the ones that are too small.) */
+@media (max-width: 768px) {
+  input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select { font-size: 16px; }}
+
+/* Query empty-state pulls content up 96px to optically center it; on short /
+   landscape viewports that pushes the heading under the header and can hide the
+   input bar, so cancel the offset there (the column already scrolls). */
+@media (max-height: 600px) {
+  .query-empty { margin-top: 0 !important; }}
+
+/* Home "recent reports" rows: on small screens drop the actions to a full-width
+   second line so the fixed ticker/time columns never overflow, and keep the
+   actions visible (no hover on touch). */
+@media (max-width: 560px) {
+  .rr-recent-row { flex-wrap: wrap; }
+  .rr-recent-actions {
+    min-width: 0 !important;
+    width: 100%;
+    justify-content: flex-start !important;
+    opacity: 1 !important;
+    margin-top: 2px;
+    gap: 4px;
+  }}
+
+/* The per-row icon actions are permanently visible on touch, so give them a
+   real ≥44px tap target (the icons stay small). Covers both the <button>
+   actions (Sources/View/Delete) and the PDF download <a>. Keyed off
+   `hover: none` (not a width breakpoint) so 768–1024px touch tablets get the
+   same accessible target, not just ≤560px phones — and so it matches Home.jsx's
+   row-action reveal, which is gated on matchMedia('(hover: none)'); using
+   pointer:coarse here would reserve 44px on hybrid touchscreen laptops where the
+   actions stay hover-hidden. */
+@media (hover: none) {
+  .rr-recent-actions > button,
+  .rr-recent-actions > a {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+  }}
+
+/* Ultra-thin scrollbar — neutral on the dark UI. The old Base44 template
+   tinted the thumb blue (rgba(0,51,204,…)) with a .dark override that never
+   applied (no dark class is ever set), and browsers honoring scrollbar-color
+   painted a vivid blue pill on every dark page. Neutral grey works on every
+   surface. */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 155, 170, 0.28);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 155, 170, 0.45);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 155, 170, 0.28) transparent;
+}
+
+/* Market summary hides the ROOT scrollbar for the length of its visit. The bar
+   lives on <html>, out of reach of any component, so MarketHome's mount effect
+   sets this attribute and removes it on unmount — every other page keeps the
+   thin bar, which a long screener table genuinely needs as a position cue.
+   The attribute selector is what out-specifies the `* { scrollbar-width: thin }`
+   rule above. Scrolling is untouched: wheel, trackpad, keys and touch all work;
+   only the visible track goes. */
+html[data-hide-root-scrollbar] { scrollbar-width: none; -ms-overflow-style: none; }
+html[data-hide-root-scrollbar]::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* Selection: light ink on the navy ground */
+::selection {
+  background: rgba(244, 245, 247, 0.26);
+  color: #ffffff;
+}
+
+/* Streaming cursor blink */
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.streaming-cursor > :last-child::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: rgba(165, 180, 252, 0.7);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: cursor-blink 0.75s step-end infinite;
+}
+
+/* Smooth textarea resize */
+textarea {
+  transition: height 0.15s ease;
+}
+
+/* The app accent (navy). */
+:root {
+  --color-accent: #0e1420;
+}
+
+/* ── Hero accent animations ── */
+@keyframes breathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.4; }
+}
+
+/* Spin keyframe for loader */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pulse keyframe for font loading indicator */
+@keyframes pulse {
+  to { opacity: 1; transform: scale3d(0.5, 0.5, 1); }
+}
+
+/* Search input placeholder */
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 300;
+}
+
+/* ═══════ Hex Loader Animation ═══════ */
+.hl-hex-brick {
+  background: #f4f5f7;
+  width: 30px;
+  height: 17px;
+  position: absolute;
+  top: 5px;
+  animation: hl-fade 2s infinite;
+}
+.hl-h2 { transform: rotate(60deg); }
+.hl-h3 { transform: rotate(-60deg); }
+.hl-gel {
+  height: 30px;
+  width: 30px;
+  transition: all .3s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.hl-center-gel {
+  margin-left: -15px;
+  margin-top: -15px;
+  animation: hl-pulse 2s infinite;
+}
+.hl-r1 { animation: hl-pulse 2s infinite 0.2s; }
+.hl-r2 { animation: hl-pulse 2s infinite 0.4s; }
+.hl-r3 { animation: hl-pulse 2s infinite 0.6s; }
+.hl-r1 > .hl-hex-brick { animation: hl-fade 2s infinite 0.2s; }
+.hl-r2 > .hl-hex-brick { animation: hl-fade 2s infinite 0.4s; }
+.hl-r3 > .hl-hex-brick { animation: hl-fade 2s infinite 0.6s; }
+@keyframes hl-pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.01); }
+  100% { transform: scale(1); }
+}
+@keyframes hl-fade {
+  0%   { background: #d5d8de; }
+  50%  { background: #f4f5f7; }
+  100% { background: #c3c7cf; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }}
+/* Homepage scroll backdrop (owner 2026-11-22: "make the top blur when they scroll down"). Home
+   (LectioHome) portals .home-top-blur into <body> and is the only page that does, so it goes when
+   Home is left. A full-width band over the header's 84 px: z-index 50 puts it above the page
+   ([data-main], z 2) and below the fixed header (z 100), so the logo, the finder and the menu
+   stay crisp on top. It is invisible at the top of the page and fades in over the first 84 px of
+   scroll through --home-logo-backdrop (0 to 1, set by Home's passive scroll handler); the blur
+   radius never changes, only the opacity. It never takes the pointer and it steps aside while
+   the menu is open or closing (the page slides away beneath it then). */
+body[data-home-dark="1"] :is(.underlay-nav__logo, .underlay-nav__toggle) { position:relative; isolation:isolate; }
+.home-top-blur {
+  position:fixed; top:0; left:0; right:0; height:84px; z-index:50;
+  pointer-events:none;
+  box-sizing:border-box;
+  border-bottom:1px solid rgba(255, 255, 255, 0.08);
+  background:rgba(14, 20, 32, 0.94);
+  opacity:var(--home-logo-backdrop, 0);
+  will-change:opacity;
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .home-top-blur {
+    background:rgba(14, 20, 32, 0.72);
+    -webkit-backdrop-filter:blur(14px) saturate(1.15);
+    backdrop-filter:blur(14px) saturate(1.15);
+  }
+}
+body:is([data-menu-status="open"], [data-menu-status="closing"]) .home-top-blur { visibility:hidden; }
+
+.europa-finder {pointer-events:auto;position:relative;display:flex;align-items:center;gap:8px;width:clamp(105px,22vw,260px);padding:7px 10px;border-radius:8px;color:#dce5ee;background:#182332;font:14px/1.4 system-ui;}
+.europa-finder input {width:100%;min-width:0;color:inherit;background:transparent;border:0;}
+.europa-finder:focus-within {outline:1px solid #91b5dc;}
+.europa-finder input::placeholder {color:#b3becd;}
+.finder-results {display:none;position:absolute;top:calc(100% + 4px);left:0;min-width:210px;width:100%;background:#182332;border-radius:8px;box-shadow:0 6px 24px #080c1466;}
+.europa-finder:focus-within .finder-results {display:grid;}
+.finder-results a {display:block;padding:8px 10px;color:#e6edf5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.finder-results a strong {margin-right:6px;font-weight:650;}
+.finder-results a span {color:#b3becd;}
+.finder-results a:is(:hover,:focus-visible,[aria-selected=true]){background:#29394d;}
+.finder-results a:is(:hover,:focus-visible,[aria-selected=true]) span {color:#dce5ee;}
+.finder-results .finder-empty {margin:0;padding:8px 10px;color:#b3becd;}
+body[data-menu-status="open"] .europa-finder {visibility:hidden;}
+
+.underlay-nav__container .europa-finder {order:1;}
+.underlay-nav__container .underlay-nav__toggle {order:2;}
+
+.stock-search-tool {order:1;position:relative;margin-left:auto;margin-right:clamp(8px,2vw,28px);pointer-events:auto;}
+.stock-search-trigger {display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:#bbc7d5;background:transparent;}
+.stock-search-trigger:is(:hover,:focus-visible,[aria-expanded=true]) {color:white;background:#223044;}
+.stock-search-tool .europa-finder {position:absolute;right:0;top:calc(100% + 6px);width:min(270px,78vw);padding:12px 14px;background:#182332;border:1px solid #404e61;box-shadow:0 8px 30px #080d1666;}
+body[data-menu-status="open"] .stock-search-tool {visibility:hidden;}
+@media(max-width:600px){.stock-search-tool .europa-finder {position:fixed;left:5vw;right:5vw;top:65px;width:90vw;}}
+
+/* Keep keyboard focus on the search surface as it settles under the icon. */
+.stock-search-tool .europa-finder {
+  border-radius: 14px;
+  animation: stock-search-rise 180ms cubic-bezier(.2,.8,.2,1) both;
+}
+.stock-search-tool .europa-finder:focus-within {
+  outline: none;
+  border-color: #849ab6;
+  box-shadow: 0 5px 18px #070c1540;
+}
+.stock-search-tool .europa-finder input:focus {
+  outline: none;
+  box-shadow: none;
+}
+@keyframes stock-search-rise {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stock-search-tool .europa-finder { animation: none; }
+}
+
+.stock-search-trigger,.stock-search-tool .europa-finder {backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.stock-search-tool .europa-finder {background:rgba(24,35,50,.84);}
+.stock-search-trigger {background:rgba(14,20,32,.35);}
+
+.stock-search-tool {width:40px;height:40px;display:flex;align-items:center;justify-content:flex-end;transition:width 260ms cubic-bezier(.22,.7,.25,1);}
+.stock-search-tool[data-expanded=true] {width:clamp(150px,22vw,285px);}
+.stock-search-tool .stock-search-trigger {position:relative;z-index:1;flex:none;}
+.stock-search-tool .europa-finder {position:absolute;inset:0;width:100%;padding:0 42px 0 12px;border-radius:20px;animation:finder-across 260ms ease-out;}
+.stock-search-tool[data-expanded=true] .stock-search-trigger {animation:finder-icon-across 260ms ease-out;background:transparent;}
+@keyframes finder-across {from{opacity:.2;transform:translateX(-14px);}to{opacity:1;transform:none;}}
+@keyframes finder-icon-across {from{transform:translateX(-26px);}to{transform:none;}}
+@media(max-width:600px){.stock-search-tool[data-expanded=true]{position:absolute;inset-inline:12px;width:auto;z-index:5;background:#182332;border-radius:20px;margin:0;}}
+@media(prefers-reduced-motion:reduce){.stock-search-tool{transition:none;}.stock-search-tool .europa-finder,.stock-search-tool[data-expanded=true] .stock-search-trigger{animation:none;}}

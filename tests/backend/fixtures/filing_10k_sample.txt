@@ -1,0 +1,154 @@
+UNITED STATES
+SECURITIES AND EXCHANGE COMMISSION
+Washington, D.C. 20549
+
+FORM 10-K
+
+ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934
+
+For the fiscal year ended September 27, 2025
+
+Commission File Number 000-00000
+
+CALDER RIDGE INSTRUMENTS, INC.
+(a fictional company used for tests)
+
+TABLE OF CONTENTS
+
+PART I
+Item 1. Business 3
+Item 1A. Risk Factors 5
+Item 1B. Unresolved Staff Comments 9
+Item 1C. Cybersecurity 9
+Item 2. Properties 10
+Item 3. Legal Proceedings 10
+Item 4. Mine Safety Disclosures 10
+PART II
+Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities 11
+Item 6. [Reserved] 11
+Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations 12
+Item 7A. Quantitative and Qualitative Disclosures About Market Risk 15
+Item 8. Financial Statements and Supplementary Data 16
+Item 9. Changes in and Disagreements With Accountants on Accounting and Financial Disclosure 30
+
+FORWARD-LOOKING STATEMENTS
+
+This report contains forward-looking statements. Actual results could differ materially from those anticipated in these statements because of the risks described in Part I, Item 1A, "Risk Factors," and elsewhere in this report, and we undertake no obligation to update them.
+
+PART I
+
+ITEM 1. BUSINESS
+
+Calder Ridge Instruments, Inc. designs and sells precision measurement instruments, replacement parts and calibration services to research laboratories, universities and industrial quality-control departments. Our instruments are assembled by contract manufacturers to our designs, and we sell them through a direct sales force and a network of independent distributors.
+
+We operate in one reportable segment. Our customers include public research institutions, private laboratories and manufacturers that test materials as part of their production processes. No single customer accounted for a significant share of our net sales in fiscal 2025.
+
+ITEM 1A. RISK FACTORS
+
+Investing in our common stock involves risk. You should carefully consider the risks described below, together with the other information in this report, before deciding to invest in our common stock.
+
+Summary of Risk Factors
+
+The following is a summary of the principal risks that could adversely affect our business. It is not complete and should be read together with the full risk factors that follow.
+
+• We depend on a small number of contract manufacturers.
+• Demand depends on the capital budgets of research laboratories.
+• We face competition from larger companies.
+• A breach of our information systems could disrupt our operations.
+
+Risks Related to Our Business and Operations
+
+We depend on a small number of contract manufacturers, and a disruption at any of them could delay shipments of our instruments.
+
+Two contract manufacturers assembled substantially all of our instruments in fiscal 2025. If either of them suffers a fire, a labor dispute, a loss of key staff or a financial failure, we may be unable to ship instruments for several months while we qualify a replacement. Qualifying a new manufacturer requires us to transfer tooling, train its staff and repeat our acceptance tests, and our customers may cancel orders during that period.
+
+We do not have long-term supply agreements with these manufacturers, and they may raise their prices or give priority to larger customers. Any of these events could reduce our net sales, increase our costs and harm our relationships with customers who depend on timely delivery of instruments and replacement parts.
+
+Demand for our instruments depends on the capital budgets of research laboratories, which can be reduced or delayed with little notice.
+Most of our instruments are purchased out of capital budgets that are set by universities, government agencies and corporate research departments. These budgets depend on public funding decisions, grant cycles and our customers' own financial results, and they can be cut or postponed with little notice. A reduction in research funding in our larger markets could cause customers to delay or cancel purchases.
+
+Competition from larger companies with broader product lines could reduce our sales and margins.
+
+We compete with companies that have greater financial, technical and marketing resources than we do and that can offer laboratories a complete set of instruments under one contract. Some competitors bundle service and software with their instruments at prices we may not be able to match. If we cannot differentiate our instruments on accuracy and reliability, we may lose sales or be forced to lower our prices, which would reduce our gross margin.
+
+Risks Related to Technology and Information Security
+
+A breach of our information systems, or those of our vendors, could disrupt our operations and expose us to liability.
+
+We rely on information systems to take orders, manage inventory, operate our calibration services and store customer data. These systems, and those of the vendors that host them, are exposed to ransomware, phishing and other attacks, as well as to failures caused by human error. A successful attack could interrupt our order processing for an extended period and require us to notify customers and regulators.
+
+Table of Contents
+
+14
+
+We maintain security controls and insurance, but they may not prevent every incident or cover every loss. Remediating a breach could require significant management attention and expense, and the resulting damage to our reputation could cause laboratories to choose a competitor’s “certified” instruments over ours.
+
+If we fail to protect our intellectual property, competitors may copy our designs.
+
+We rely on patents, trade secrets and confidentiality agreements to protect the designs of our instruments. Our patents may be challenged, narrowed or circumvented, and our confidentiality agreements may be breached. Enforcing our rights through litigation would be expensive and could divert our management from running the business, and we may not prevail.
+
+Risks Related to Regulation and Trade
+
+Changes in trade policy, including tariffs on imported components, could increase our costs.
+
+Many of the optical and electronic components in our instruments are imported, and approximately 38% of our component purchases in fiscal 2025 came from suppliers outside the United States. New or higher tariffs, export restrictions or customs delays could raise the cost of these components or interrupt their supply, and we may not be able to pass the higher costs on to our customers.
+
+We are subject to environmental, export control and anti-corruption laws, and a violation could result in penalties.
+
+Our products and operations are subject to laws that govern the disposal of hazardous materials, the export of measurement technology to certain countries and the conduct of our distributors abroad. A failure to comply with these laws, even if unintentional, could result in fines, the loss of export privileges or restrictions on our ability to sell in some markets.
+
+General Risk Factors
+
+Our quarterly results may fluctuate, and the market price of our common stock may be volatile.
+
+Our net sales and operating results vary from quarter to quarter because large instrument orders are concentrated at the end of our customers' budget years. As a result, our results for any quarter may not be indicative of future periods. The market price of our common stock may fall sharply if our results do not meet the expectations of securities analysts, and stockholders could lose part of their investment.
+
+Item 1B. Unresolved Staff Comments
+
+None.
+
+Item 1C. Cybersecurity
+
+Our information security program is overseen by the audit committee of our board of directors and managed by our director of information technology, who reports on security matters at each regular committee meeting.
+
+Item 2. Properties
+
+We lease our headquarters and calibration laboratory in a single building.
+
+Item 3. Legal Proceedings
+
+We are not a party to any material pending legal proceedings.
+
+Item 4. Mine Safety Disclosures
+
+Not applicable.
+
+PART II
+
+Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities
+
+Our common stock is listed on a national securities exchange.
+
+Item 6. [Reserved]
+
+Item 7 — Management’s Discussion and Analysis of Financial Condition and Results of Operations
+
+The following discussion should be read together with our consolidated financial statements in Item 8 of this report. Net sales increased in fiscal 2025 compared with fiscal 2024, mainly because of higher instrument shipments to research laboratories, partly offset by lower calibration service revenue.
+
+Gross margin was lower than in the prior year because component costs rose, including the effect of tariffs on imported optical parts. Operating expenses rose as we added sales staff in new regions.
+
+ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK
+
+We are exposed to changes in foreign currency exchange rates because some of our component purchases and distributor sales are denominated in currencies other than the U.S. dollar. We do not currently use derivative instruments to hedge this exposure.
+
+Item 8. Financial Statements and Supplementary Data
+
+The consolidated financial statements and the report of our independent registered public accounting firm are set out below, beginning with the consolidated balance sheets.
+
+CONSOLIDATED BALANCE SHEETS
+
+Cash and cash equivalents, accounts receivable, inventories and property and equipment are presented in the statements that follow.
+
+Item 9. Changes in and Disagreements With Accountants on Accounting and Financial Disclosure
+
+None.

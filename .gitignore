@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+Screenshot*.png
+results/*.tmp
+.DS_Store
+.pytest_cache/
+node_modules/
+dist/
+output/
+*.sqlite*

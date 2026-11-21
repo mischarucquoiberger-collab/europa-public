@@ -1,0 +1,297 @@
+{
+ "cik": 9999003,
+ "entityName": "Harbor Trust Bancorp",
+ "facts": {
+  "us-gaap": {
+   "Revenues": {
+    "label": "Total net revenue",
+    "description": "Total net revenue",
+    "units": {
+     "USD": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 18400000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 17250000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "NetIncomeLoss": {
+    "label": "Net income",
+    "description": "Net income",
+    "units": {
+     "USD": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 5060000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 4610000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "EarningsPerShareBasic": {
+    "label": "EPS basic",
+    "description": "EPS basic",
+    "units": {
+     "USD/shares": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 4.83,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 4.41,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "EarningsPerShareDiluted": {
+    "label": "EPS diluted",
+    "description": "EPS diluted",
+    "units": {
+     "USD/shares": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 4.8,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 4.38,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "CommonStockDividendsPerShareDeclared": {
+    "label": "Dividends",
+    "description": "Dividends",
+    "units": {
+     "USD/shares": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 1.6,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 1.52,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "NetCashProvidedByUsedInOperatingActivities": {
+    "label": "CFO",
+    "description": "CFO",
+    "units": {
+     "USD": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": -3200000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 7400000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "Assets": {
+    "label": "Assets",
+    "description": "Assets",
+    "units": {
+     "USD": [
+      {
+       "end": "2024-12-31",
+       "val": 412000000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 398500000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "Liabilities": {
+    "label": "Liabilities",
+    "description": "Liabilities",
+    "units": {
+     "USD": [
+      {
+       "end": "2024-12-31",
+       "val": 371500000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 360100000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "StockholdersEquity": {
+    "label": "Equity",
+    "description": "Equity",
+    "units": {
+     "USD": [
+      {
+       "end": "2024-12-31",
+       "val": 40500000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 38400000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "LongTermDebt": {
+    "label": "Long-term debt",
+    "description": "Long-term debt",
+    "units": {
+     "USD": [
+      {
+       "end": "2024-12-31",
+       "val": 61000000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      },
+      {
+       "end": "2023-12-31",
+       "val": 58200000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   },
+   "CashAndDueFromBanks": {
+    "label": "Cash and due from banks",
+    "description": "Cash and due from banks",
+    "units": {
+     "USD": [
+      {
+       "end": "2024-12-31",
+       "val": 21000000000,
+       "accn": "0009999003-25-000015",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-14"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

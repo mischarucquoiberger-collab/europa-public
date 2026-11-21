@@ -1,0 +1,74 @@
+{
+ "cik": 9999004,
+ "entityName": "Cedar Labs Corp.",
+ "facts": {
+  "us-gaap": {
+   "Revenues": {
+    "label": "Revenues",
+    "description": "Revenues",
+    "units": {
+     "USD": [
+      {
+       "start": "2017-01-01",
+       "end": "2017-12-31",
+       "val": 5100000000,
+       "accn": "0009999004-18-000007",
+       "fy": 2017,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2018-02-26"
+      },
+      {
+       "start": "2016-01-01",
+       "end": "2016-12-31",
+       "val": 4800000000,
+       "accn": "0009999004-18-000007",
+       "fy": 2017,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2018-02-26"
+      }
+     ]
+    }
+   },
+   "RevenueFromContractWithCustomerExcludingAssessedTax": {
+    "label": "Revenue",
+    "description": "Revenue",
+    "units": {
+     "USD": [
+      {
+       "start": "2024-01-01",
+       "end": "2024-12-31",
+       "val": 9300000000,
+       "accn": "0009999004-25-000009",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-24"
+      },
+      {
+       "start": "2023-01-01",
+       "end": "2023-12-31",
+       "val": 8700000000,
+       "accn": "0009999004-25-000009",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-24"
+      },
+      {
+       "start": "2022-01-01",
+       "end": "2022-12-31",
+       "val": 8100000000,
+       "accn": "0009999004-25-000009",
+       "fy": 2024,
+       "fp": "FY",
+       "form": "10-K",
+       "filed": "2025-02-24"
+      }
+     ]
+    }
+   }
+  }
+ }
+}
