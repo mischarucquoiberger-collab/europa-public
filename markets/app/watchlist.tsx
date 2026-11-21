@@ -9,24 +9,29 @@ const valid = (s: unknown): s is string => typeof s === "string" && /^[A-Z][A-Z0
 
 function WatchRow({symbol, remove}: {symbol:string; remove:()=>void}) {
   const [quote,setQuote] = useState<{close:number; change:number|null; date:string; low?:number; high?:number; volume?:number; open?:number; previous?:number; averageVolume?:number}|null|undefined>(undefined);
+  const [why,setWhy] = useState("Unavailable");
   useEffect(() => {
     const controller = new AbortController();
     async function load() {
       const response = await fetch("/api/market?section=chart&range=1M&ticker="+encodeURIComponent(symbol), {signal:controller.signal});
-      if (!response.ok) throw new Error();
+      if (!response.ok) {
+        const body = await response.json().catch(()=>null);
+        throw new Error(body?.reason === "plan" ? "Not on data plan" : "Unavailable");
+      }
       const {points=[]} = await response.json();
+      if (!points.length) setWhy("No data");
       const last = points.at(-1), prev = points.at(-2);
       const recentVolumes = points.slice(-20).map((p:{v?:number})=>p.v).filter((v:unknown):v is number=>typeof v==="number" && Number.isFinite(v));
       const averageVolume = recentVolumes.length===20 ? recentVolumes.reduce((sum:number,v:number)=>sum+v,0)/20 : undefined;
       setQuote(last ? {close:last.c, open:last.o, previous:prev?.c, averageVolume, low:last.l, high:last.h, volume:last.v, change:prev?.c ? last.c-prev.c : null, date:new Date(last.t).toISOString().slice(0,10)} : null);
     }
-    load().catch(()=>{if (!controller.signal.aborted) setQuote(null);});
+    load().catch((error)=>{if (!controller.signal.aborted) {setWhy(error instanceof Error && error.message === "Not on data plan" ? error.message : "Unavailable"); setQuote(null);}});
     return ()=>controller.abort();
   }, [symbol]);
   const signed = (n:number) => (n>0?"+":"")+n.toFixed(2);
   const [expanded,setExpanded] = useState(false);
-  return <><tr><th scope="row"><button className="watch-expand" aria-label={"Session details for "+symbol} aria-expanded={expanded} onClick={()=>setExpanded(!expanded)}>{expanded?"▾":"▸"}</button> <StockLink ticker={symbol}/></th><td title={quote?.date}>{quote ? "$"+quote.close.toFixed(2) : quote===null?"Unavailable":<span className="sk sk-text" style={{width:"3.6rem",marginLeft:"auto"}}/>}</td>
-    <td>{quote?.change != null ? signed(quote.change) : quote===undefined ? <span className="sk sk-text" style={{width:"2.8rem",marginLeft:"auto"}}/> : "—"}</td><td className={(quote?.change??0)<0?"down":"up"}>{quote?.change != null ? signed(100*quote.change/(quote.close-quote.change))+"%" : quote===undefined ? <span className="sk sk-text" style={{width:"3rem",marginLeft:"auto"}}/> : "—"}</td>
+  return <><tr><th scope="row"><button className="watch-expand" aria-label={"Session details for "+symbol} aria-expanded={expanded} onClick={()=>setExpanded(!expanded)}>{expanded?"▾":"▸"}</button> <StockLink ticker={symbol}/></th><td title={quote?.date}>{quote ? "$"+quote.close.toFixed(2) : quote===null?why:<span className="sk sk-text" style={{width:"3.6rem",marginLeft:"auto"}}/>}</td>
+    <td>{quote?.change != null ? signed(quote.change) : quote===undefined ? <span className="sk sk-text" style={{width:"2.8rem",marginLeft:"auto"}}/> : "—"}</td><td className={!quote?.change?"":quote.change<0?"down":"up"}>{quote?.change != null ? signed(100*quote.change/(quote.close-quote.change))+"%" : quote===undefined ? <span className="sk sk-text" style={{width:"3rem",marginLeft:"auto"}}/> : "—"}</td>
     <td><button aria-label={"Remove "+symbol} onClick={remove}>×</button></td></tr>{expanded && <tr><td colSpan={5}><dl className="watch-stats">
     <div><dt>Trading date</dt><dd>{quote?.date ?? "—"}</dd></div>
     <div><dt>Day range</dt><dd>{quote?.low != null && quote.high != null ? "$"+quote.low.toFixed(2)+" – $"+quote.high.toFixed(2) : "—"}</dd></div>

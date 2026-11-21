@@ -341,3 +341,11 @@ body:has(.closing-sheet) { background:#0e1420; }
   @keyframes sk-pulse {0%,100%{background-color:#1e2a3a;} 50%{background-color:#2a3849;}}
 }
 .stock-page .sk-chart {--chart-h:305px;}
+
+/* A tile or panel with no figures says why, in plain words, instead of drawing stand-ins. */
+.closing-sheet .tape-missing small {color:var(--sub);}
+.closing-sheet .tape-missing small::before {display:none;}
+.closing-sheet .tape-note {margin:4px 14px 0;color:var(--sub);font-size:.78rem;}
+.closing-sheet .report-links {display:flex;gap:14px;align-items:baseline;}
+.closing-sheet .report-links a {font-weight:550;}
+.closing-sheet .earnings abbr {text-decoration:none;color:var(--sub);margin-left:2px;cursor:help;}

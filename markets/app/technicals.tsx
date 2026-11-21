@@ -107,7 +107,7 @@ function relativeVolume(points: Point[], length = 30) {
 // ---------- labels ----------
 
 const signed = (n: number) => (n > 0 ? "+" : "") + n.toFixed(2) + "%";
-const tone = (n: number | null) => (n === null ? "" : n < 0 ? "down" : "up");
+const tone = (n: number | null) => (n === null || n === 0 ? "" : n < 0 ? "down" : "up");
 
 function rsiLabel(value: number) {
   if (value >= 70) return "Overbought";
@@ -127,27 +127,24 @@ function trendLabel(above: number, total: number) {
 type Props = {
   /** Ticker to load, e.g. "SPY" or "I:NDX". */
   ticker: string;
-  /** Points to use when the API is in sample mode (no key configured). */
-  fallback: Point[];
 };
 
-export default function Technicals({ ticker, fallback }: Props) {
-  const [state, setState] = useState<{ ticker: string; points: Point[]; sample: boolean } | null>(null);
+export default function Technicals({ ticker }: Props) {
+  const [state, setState] = useState<{ ticker: string; points: Point[]; error?: string } | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
     fetch(`/api/market?section=chart&range=1Y&ticker=${encodeURIComponent(ticker)}`, { signal: controller.signal })
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((data) => {
-        const sample = data.mode === "sample";
-        setState({ ticker, points: sample ? fallback : data.points ?? [], sample });
+      .then(async (res) => {
+        const data = await res.json().catch(() => null);
+        if (!res.ok) throw new Error(data?.reason === "plan" ? "Not available on this data plan" : "Market data is unavailable right now");
+        return data;
       })
-      .catch(() => {
-        if (!controller.signal.aborted) setState({ ticker, points: [], sample: false });
+      .then((data) => setState({ ticker, points: data?.points ?? [] }))
+      .catch((error) => {
+        if (!controller.signal.aborted) setState({ ticker, points: [], error: error instanceof Error && error.message === "Not available on this data plan" ? error.message : "Market data is unavailable right now" });
       });
     return () => controller.abort();
-    // `fallback` is regenerated each render; only refetch when the ticker changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticker]);
 
   const name = ticker.replace("I:", "");
@@ -160,7 +157,7 @@ export default function Technicals({ ticker, fallback }: Props) {
   const header = (
     <header>
       <h2>{name} technicals</h2>
-      <p>Daily bars · 1 year{state?.sample && !loading ? " · Sample" : ""}</p>
+      <p>Daily bars · 1 year · Massive</p>
     </header>
   );
 
@@ -168,7 +165,7 @@ export default function Technicals({ ticker, fallback }: Props) {
     return (
       <section className="technicals" aria-busy={loading}>
         {header}
-        {loading ? <TechnicalsSkeleton/> : <p className="technicals-empty">No price history available.</p>}
+        {loading ? <TechnicalsSkeleton/> : <p className="technicals-empty">{state?.error ?? "No price history available."}</p>}
       </section>
     );
   }

@@ -9,6 +9,8 @@ export function NewsList({ stories, title = "Stock news" }: { stories: Article[]
   const [expanded,setExpanded]=useState(false);
   return <section className="news-section"><h2>{title}</h2>{stories?.length ? <div className="news-grid">{(expanded?stories:stories.slice(0,4)).map(story =>
     <article key={story.id || story.article_url}>
+      {/* Publisher images come from any host, so next/image (which needs each host listed) does not fit. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       {story.image_url?.startsWith("https://") && <img className="news-photo" loading="lazy" alt="" src={story.image_url} onError={e=>{e.currentTarget.hidden=true;}}/>}
       <small><b>{story.publisher?.name}</b> · <time dateTime={story.published_utc}>{new Date(story.published_utc).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/New_York"})} ET</time></small>
       <h3><a href={story.article_url} target="_blank" rel="noreferrer">{story.headline??story.title}</a></h3>
