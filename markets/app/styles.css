@@ -219,3 +219,9 @@ body { background:linear-gradient(155deg,#e8f1f6,transparent 450px),var(--page);
 .ledger-toggle[aria-expanded="true"] .ledger-toggle-icon { transform:rotate(180deg); }
 @media (prefers-reduced-motion: reduce) { .ledger-toggle-icon { transition:none; } }
 .mast .nav-research{display:flex;align-items:center;gap:2px}.mast .nav-research>span:first-child{color:#9fb0c8;font-size:.78rem;padding:0 4px 0 12px}.mast .report-links{display:flex;gap:2px}
+
+/* The desk is shown inside the app's page, and that page does the scrolling: the framed document
+   never draws a scrollbar of its own. On a Mac set to always show scrollbars it appeared as a white
+   bar down the right edge of Home (the light root scheme gave it a white track). */
+html{scrollbar-width:none;-ms-overflow-style:none;background:#0e1420}
+html::-webkit-scrollbar{width:0;height:0;display:none}
